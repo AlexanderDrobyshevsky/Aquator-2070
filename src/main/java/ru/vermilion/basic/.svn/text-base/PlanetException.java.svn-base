@@ -1,0 +1,11 @@
+package basic;
+
+public class PlanetException extends RuntimeException {
+
+	private static final long serialVersionUID = -6709131651503850366L;
+
+	public PlanetException(String errorMessage) {
+		super(errorMessage);
+	}
+	
+}
