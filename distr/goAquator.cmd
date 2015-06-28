@@ -1,0 +1,1 @@
+java -jar -Xbatch -Xms256m -Xmx1024m -Xint Aquator-1.0.jar
