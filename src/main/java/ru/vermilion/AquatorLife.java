@@ -153,12 +153,14 @@ public class AquatorLife {
 		if (isHandling == true || theEnd) {
 			return;
 		}
-		
+
+		isHandling = true;
 		if (shell == null) {
-			isHandling = true;
-			AquatorExecutive.IterationLateData iterationData = 
-					aquatorExecutive.nextIteration(gc, shell, currentLand);
+			AquatorExecutive.IterationLateData iterationData = aquatorExecutive.nextIteration(gc, shell, currentLand);
 			aquatorExecutive.setLastRedrewIteration(aquatorExecutive.getCurrentIteration());
+
+			PlanetModelController.getInstance().update();
+			EmpiricGraphicData.getInstance().add(iterationData.getFishesCount(), iterationData.getSharksCount());
 			
 			if (iterationData.getFishesCount() + iterationData.getSharksCount() == 0) {
 				theEnd = true;
@@ -173,7 +175,6 @@ public class AquatorLife {
 			return;
 		}
 		
-		isHandling = true;
 		for (int i = 0; i < currentLand.length; i++) {
 			Arrays.fill(currentLand[i], 0);
 		}
@@ -187,15 +188,13 @@ public class AquatorLife {
 				return;
 			}
 			
-			AquatorExecutive.IterationLateData iterationData = 
-				aquatorExecutive.nextIteration(gc, shell, currentLand);
+			AquatorExecutive.IterationLateData iterationData = aquatorExecutive.nextIteration(gc, shell, currentLand);
 			
 			PlanetModelController.getInstance().update();
 			
 			fishLabel.setText("F: --" + iterationData.getFishesCount() + "--;");
 			sharkLabel.setText("S: --" + iterationData.getSharksCount() + "--;");
-			cntLabel.setText("ITER:--" + aquatorExecutive.getCurrentIteration()
-					+ "--;");
+			cntLabel.setText("ITER:--" + aquatorExecutive.getCurrentIteration() + "--;");
 			
 			EmpiricGraphicData.getInstance().add(iterationData.getFishesCount(), iterationData.getSharksCount());
 

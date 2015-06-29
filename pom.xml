@@ -23,7 +23,7 @@
                 <archive>
                     <manifest>
                         <addClasspath>true</addClasspath>
-                        <mainClass>ru.vermilion.Aquator2062</mainClass>
+                        <mainClass>ru.vermilion.Aquator2070</mainClass>
                         <classpathPrefix>lib/</classpathPrefix>
                         <useUniqueVersions>true</useUniqueVersions>
                     </manifest>

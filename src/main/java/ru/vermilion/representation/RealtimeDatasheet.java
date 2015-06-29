@@ -56,6 +56,7 @@ public class RealtimeDatasheet extends Thread {
 	private Button itrxButton;
 	private Button fishesButton;
 	private Button sharksButton;
+	private Button runningTime;
 	
 	private Button minimumFishesButton;
 	private Button maximumFishesButton;
@@ -85,6 +86,8 @@ public class RealtimeDatasheet extends Thread {
 		createButtonedLabel2x(datasheetComposite11, "Cycle:", "0");
 		fishesButton = createButtonedLabel2x(datasheetComposite11, "Fishes:", "0");
 		sharksButton = createButtonedLabel2x(datasheetComposite11, "Sharks:", "0");
+
+		runningTime = createButtonedLabel2x(datasheetComposite11, "Running Time:", "0");
 		
 		Composite datasheetComposite12 = new Composite(datasheetComposite11, SWT.NONE);
 		gd = new GridData(GridData.FILL_HORIZONTAL);

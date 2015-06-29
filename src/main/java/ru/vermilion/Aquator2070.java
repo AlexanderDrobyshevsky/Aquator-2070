@@ -11,19 +11,14 @@ import ru.vermilion.representation.RealtimeDatasheet;
 
 import ru.vermilion.basic.AquatorPlanetHelper;
 
-public class Aquator2062    {
+public class Aquator2070 {
 
 	private void start() {
-		// Creates a new display object for the example to go into
 		Display display = new Display();
-		// Creates a new shell object
 		Shell shell = new Shell(display);
-		// Sets the layout for the shell
 		shell.setLayout(new GridLayout());
 		shell.setText("World Configuration");
-		// Creates the control example - see import statement for location.
-		PlanetInitialConfigurationWindow planetInitialConfigurationWindow = new PlanetInitialConfigurationWindow(
-				shell);
+		PlanetInitialConfigurationWindow planetInitialConfigurationWindow = new PlanetInitialConfigurationWindow(shell);
 		shell.open();
 
 		while (!shell.isDisposed()) {
@@ -40,7 +35,6 @@ public class Aquator2062    {
 
 		// /////////////
 
-		// display = new Display();
 		shell = new Shell(display);
 		// Sets the layout for the shell
 		shell.setLayout(new GridLayout());
@@ -66,22 +60,13 @@ public class Aquator2062    {
 
 		while (!shell.isDisposed()) {
 			if (display.readAndDispatch() == false) {
-				//display.sleep();
-
 				aquaLife.nextIteration();
 			}
 			aquaLife.nextIteration();
 
-			// try {
-			// //Thread.currentThread().sleep(500);
-			// } catch (Exception ex) {
-			//
-			// }
-
 			if (aquaLife.isCancel()) {
 				break;
 			}
-
 		}
 
 		// ////////////////////////
@@ -108,7 +93,7 @@ public class Aquator2062    {
 	}
 
 	public static void main(String args[]) {
-		new Aquator2062().start();
+		new Aquator2070().start();
 
 	}
 

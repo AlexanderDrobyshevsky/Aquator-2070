@@ -32,7 +32,7 @@ public class EmpiricGraphicData {
 	}
 	
 	public int getSharksCount(int iteration) {
-		if (fishes.size() - 1 < iteration) {
+		if (sharks.size() - 1 < iteration) {
 			throw new RuntimeException("Invalid Iteration EmpireGraphicData!");
 		}
 		
