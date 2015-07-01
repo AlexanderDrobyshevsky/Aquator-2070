@@ -9,9 +9,6 @@ import ru.vermilion.world.AquatorSurface;
 import ru.vermilion.inhabitants.IInhabitant;
 
 public class AquatorPlanetHelper {
-
-	// add time to output
-	
 	private static Color colorRed;
 	private static Color colorYellow;
 	private static Color colorBlue;
@@ -26,8 +23,7 @@ public class AquatorPlanetHelper {
 		colorGreen = shell.getDisplay().getSystemColor(SWT.COLOR_GREEN);
 	}
 	
-	public static final PlanetPosition adjustPlanetPosition(
-			PlanetPosition dirtyPosition) {
+	public static final PlanetPosition adjustPlanetPosition(PlanetPosition dirtyPosition) {
 		int x = dirtyPosition.getX();
 		int y = dirtyPosition.getY();
 		int width = AquatorPlanetConfiguration.getWidth();
@@ -54,9 +50,7 @@ public class AquatorPlanetHelper {
 		return newPosition;
 	}
 
-	public static void drawWorldPosition(GC gc, Shell shell,
-			int[][] currentLand, AquatorSurface planet, PlanetPosition position) {
-		
+	public static void drawWorldPosition(GC gc, Shell shell, int[][] currentLand, AquatorSurface planet, PlanetPosition position) {
 		if (gc == null) {
 			return;
 		}

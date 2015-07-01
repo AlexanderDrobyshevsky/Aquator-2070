@@ -38,31 +38,22 @@ public class AquatorLife {
 
 	private Label cntLabel;
 
-	boolean isHandling = false;
-
-	private int width = 0;
-	private int height = 0;
-	private int depth = 0;
+	private boolean isHandling = false;
 
 	public AquatorLife(PlanetInitialConfigurationWindow config) {
-		width = config.worldWidth1;
-		height = config.worldHeight1;
-		depth = config.worldMaxDepth1;
-
-		AquatorPlanetConfiguration.setWidth(width);
-		AquatorPlanetConfiguration.setHeight(height);
-		AquatorPlanetConfiguration.setDepth(depth);
+		AquatorPlanetConfiguration.setWidth(config.getWorldWidth());
+		AquatorPlanetConfiguration.setHeight(config.getWorldHeight());
+		AquatorPlanetConfiguration.setDepth(config.getFishMaxDepth());
 		
-
 		aquatorExecutive = new AquatorExecutive();
 
-		aquatorExecutive.initFishes(config.initialFishesCount1, null,
-				config.fishLifeTime1, config.fishMaxReproductives1,
-				config.fishPregnantPeriod1, config.fishSpeed1, config.fishMaxDepth1);
-		aquatorExecutive.initSharks(config.initialSharkesCount1, null,
-				config.sharkLifeTime1, config.sharkMaxHungerTime1,
-				config.sharkPregnantPeriod1, config.sharkMaxReproductives1,
-				config.sharkSpeed1, config.sharkMaxDepth1);
+		aquatorExecutive.initFishes(config.getInitialFishesCount(), null,
+				config.getFishLifeTime(), config.getFishMaxReproductives(),
+				config.getFishPregnantPeriod(), config.getFishSpeed(), config.getFishMaxDepth());
+		aquatorExecutive.initSharks(config.getInitialSharkesCount(), null,
+				config.getSharkLifeTime(), config.getSharkMaxHungerTime(),
+				config.getSharkPregnantPeriod(), config.getSharkMaxReproductives(),
+				config.getSharkSpeed(), config.getSharkMaxDepth());
 	}
 
 	private int[][] currentLand;

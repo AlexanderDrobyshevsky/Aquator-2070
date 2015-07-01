@@ -2,6 +2,7 @@ package ru.vermilion.basic;
 
 import java.util.Random;
 
+// TODO move configuration from PlanetInitialConfigurationWindow to here
 public class AquatorPlanetConfiguration {
 
 	private static int width = 400;

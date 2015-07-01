@@ -1,5 +1,6 @@
 package ru.vermilion.representation;
 
+import ru.vermilion.PlanetInitialConfigurationWindow;
 import ru.vermilion.model.EmpiricGraphicData;
 import ru.vermilion.model.IModelListener;
 import ru.vermilion.model.PlanetModelController;
@@ -20,9 +21,15 @@ public class RealtimeDatasheet extends Thread {
 	protected Shell windowShell;
 	
 	protected EmpiricGraphicData egd = EmpiricGraphicData.getInstance();
+
+	private PlanetInitialConfigurationWindow planetInitialConfiguration;
 	
-	public static final int SHELL_TRIM = SWT.TITLE | SWT.MIN; // SWT.CLOSE | SWT.MAX;  | SWT.RESIZE;
-	
+	private static final int SHELL_TRIM = SWT.TITLE | SWT.MIN; // SWT.CLOSE | SWT.MAX;  | SWT.RESIZE;
+
+	public RealtimeDatasheet(PlanetInitialConfigurationWindow planetInitialConfiguration) {
+		this.planetInitialConfiguration = planetInitialConfiguration;
+	}
+
 	public void run() {
 		Display display = new Display();
 		windowShell = new Shell(display, SHELL_TRIM);
@@ -128,10 +135,10 @@ public class RealtimeDatasheet extends Thread {
 		gd.horizontalSpan = 4;
 		l.setLayoutData(gd);
 		
-		createButtonedLabel4x(datasheetComposite21, "World Height:", "0");
-		createButtonedLabel4x(datasheetComposite21, "World Width:", "0");
+		createButtonedLabel4x(datasheetComposite21, "World Height:", planetInitialConfiguration.getWorldHeight() + "");
+		createButtonedLabel4x(datasheetComposite21, "World Width:", planetInitialConfiguration.getWorldWidth() + "");
 		newLine();
-		createButtonedLabel4x(datasheetComposite21, "World Max Depth:", "0");
+		createButtonedLabel4x(datasheetComposite21, "World Max Depth:", planetInitialConfiguration.getWorldMaxDepth() + "");
 		createButtonedLabel4x(datasheetComposite21, "", "");
 		newLine();
 		
@@ -142,13 +149,13 @@ public class RealtimeDatasheet extends Thread {
 		l.setLayoutData(gd);
 		newSheet();
 		
-		createButtonedLabel4x(datasheetComposite21, "Fish Life Time:", "0");
-		createButtonedLabel4x(datasheetComposite21, "Fish Max Reproductives:", "0");
+		createButtonedLabel4x(datasheetComposite21, "Fish Life Time:", planetInitialConfiguration.getFishLifeTime() + "");
+		createButtonedLabel4x(datasheetComposite21, "Fish Max Reproductives:", planetInitialConfiguration.getFishMaxReproductives() + "");
 		newLine();
-		createButtonedLabel4x(datasheetComposite21, "Fish Pregnant Period:", "0");
-		createButtonedLabel4x(datasheetComposite21, "Fish Speed:", "0");
+		createButtonedLabel4x(datasheetComposite21, "Fish Pregnant Period:", planetInitialConfiguration.getFishPregnantPeriod() + "");
+		createButtonedLabel4x(datasheetComposite21, "Fish Speed:", planetInitialConfiguration.getFishSpeed() + "");
 		newLine();
-		createButtonedLabel4x(datasheetComposite21, "Fish Max Depth:", "0");
+		createButtonedLabel4x(datasheetComposite21, "Fish Max Depth:", planetInitialConfiguration.getFishMaxDepth() + "");
 		createButtonedLabel4x(datasheetComposite21, "", "");
 		newLine();
 		
@@ -159,14 +166,14 @@ public class RealtimeDatasheet extends Thread {
 		l.setLayoutData(gd);
 		newSheet();
 		
-		createButtonedLabel4x(datasheetComposite21, "Shark Life Time:", "0");
-		createButtonedLabel4x(datasheetComposite21, "Shark Max Reproductives:", "0");
+		createButtonedLabel4x(datasheetComposite21, "Shark Life Time:", planetInitialConfiguration.getSharkLifeTime() + "");
+		createButtonedLabel4x(datasheetComposite21, "Shark Max Reproductives:", planetInitialConfiguration.getSharkMaxReproductives() + "");
 		newLine();
-		createButtonedLabel4x(datasheetComposite21, "Shark Pregnant Period:", "0");
-		createButtonedLabel4x(datasheetComposite21, "Shark Speed:", "0");
+		createButtonedLabel4x(datasheetComposite21, "Shark Pregnant Period:", planetInitialConfiguration.getSharkPregnantPeriod() + "");
+		createButtonedLabel4x(datasheetComposite21, "Shark Speed:", planetInitialConfiguration.getSharkSpeed() + "");
 		newLine();
-		createButtonedLabel4x(datasheetComposite21, "Shark Max Hunger Time:", "0");
-		createButtonedLabel4x(datasheetComposite21, "Shark Max Depth:", "0");
+		createButtonedLabel4x(datasheetComposite21, "Shark Max Hunger Time:", planetInitialConfiguration.getSharkMaxHungerTime() + "");
+		createButtonedLabel4x(datasheetComposite21, "Shark Max Depth:", planetInitialConfiguration.getSharkMaxDepth() + "");
 		newLine();
 		
 		l = new Label(datasheetComposite21, SWT.LEFT);
@@ -176,8 +183,8 @@ public class RealtimeDatasheet extends Thread {
 		l.setLayoutData(gd);
 		newSheet();
 		
-		createButtonedLabel4x(datasheetComposite21, "Initial Fishes Count:", "0");
-		createButtonedLabel4x(datasheetComposite21, "Initial Sharks Count:", "0");
+		createButtonedLabel4x(datasheetComposite21, "Initial Fishes Count:", planetInitialConfiguration.getInitialFishesCount() + "");
+		createButtonedLabel4x(datasheetComposite21, "Initial Sharks Count:", planetInitialConfiguration.getInitialSharkesCount() + "");
 		newLine();
 		
 		registerListener();
@@ -245,8 +252,7 @@ public class RealtimeDatasheet extends Thread {
 		layoutAdjuster++; layoutAdjuster++;
 	}
 	
-	private Button createButtonedLabel(Composite composite, String name, String value, 
-			int keyWidth, int valueWidth) {
+	private Button createButtonedLabel(Composite composite, String name, String value, int keyWidth, int valueWidth) {
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		gd.horizontalIndent = 0;
 		gd.verticalIndent = -layoutAdjuster;

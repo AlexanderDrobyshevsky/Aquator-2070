@@ -30,8 +30,14 @@ public class Aquator2070 {
 			}
 		}
 
-		shell.close();
-		shell.dispose();
+		if (planetInitialConfigurationWindow.isOK() == null || !planetInitialConfigurationWindow.isOK()) {
+			System.exit(0);
+		}
+
+		if (!shell.isDisposed()) {
+			shell.close();
+			shell.dispose();
+		}
 
 		// /////////////
 
@@ -52,7 +58,7 @@ public class Aquator2070 {
 		ellipsegtw.setDaemon(true);
 		ellipsegtw.start();
 		
-		RealtimeDatasheet rtds = new RealtimeDatasheet();
+		RealtimeDatasheet rtds = new RealtimeDatasheet(planetInitialConfigurationWindow);
 		rtds.setDaemon(true);
 		rtds.start();
 		

@@ -20,46 +20,46 @@ import org.eclipse.swt.widgets.Text;
 public class PlanetInitialConfigurationWindow {
 	
 	private Boolean isOK = null;
-	
-	Text worldHeight;
-	Text worldWidth;
-	Text worldMaxDepth;
-	
-	Text fishLifeTime;
-	Text fishMaxReproductives;
-	Text fishPregnantPeriod;
-	Text fishSpeed;
-	Text fishMaxDepth;
-	
-	Text sharkLifeTime;
-	Text sharkMaxReproductives;
-	Text sharkPregnantPeriod;
-	Text sharkMaxHungerTime;
-	Text sharkSpeed;
-	Text sharkMaxDepth;
-	
-	Text initialFishesCount;
-	Text initialSharkesCount;
-	
-	int worldHeight1;
-	int worldWidth1;
-	int worldMaxDepth1;
-	
-	int fishLifeTime1;
-	int fishMaxReproductives1;
-	int fishPregnantPeriod1;
-	int fishSpeed1;
-	int fishMaxDepth1;
-	
-	int sharkLifeTime1;
-	int sharkMaxReproductives1;
-	int sharkPregnantPeriod1;
-	int sharkMaxHungerTime1;
-	int sharkSpeed1;
-	int sharkMaxDepth1;
-	
-	int initialFishesCount1;
-	int initialSharkesCount1;
+
+	private Text worldHeightText;
+	private Text worldWidthText;
+	private Text worldMaxDepthText;
+
+	private Text fishLifeTimeText;
+	private Text fishMaxReproductivesText;
+	private Text fishPregnantPeriodText;
+	private Text fishSpeedText;
+	private Text fishMaxDepthText;
+
+	private Text sharkLifeTimeText;
+	private Text sharkMaxReproductivesText;
+	private Text sharkPregnantPeriodText;
+	private Text sharkMaxHungerTimeText;
+	private Text sharkSpeedText;
+	private Text sharkMaxDepthText;
+
+	private Text initialFishesCountText;
+	private Text initialSharkesCountText;
+
+	private int worldHeight;
+	private int worldWidth;
+	private int worldMaxDepth;
+
+	private int fishLifeTime;
+	private int fishMaxReproductives;
+	private int fishPregnantPeriod;
+	private int fishSpeed;
+	private int fishMaxDepth;
+
+	private int sharkLifeTime;
+	private int sharkMaxReproductives;
+	private int sharkPregnantPeriod;
+	private int sharkMaxHungerTime;
+	private int sharkSpeed;
+	private int sharkMaxDepth;
+
+	private int initialFishesCount;
+	private int initialSharkesCount;
 	
 	public PlanetInitialConfigurationWindow(Composite parent) {
 		loadParameters();
@@ -79,26 +79,26 @@ public class PlanetInitialConfigurationWindow {
 		label = new Label(parent, SWT.LEFT);
 		label.setText("World Height: ");
 
-		worldHeight = new Text(parent, SWT.BORDER | SWT.WRAP);
-		worldHeight.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		worldHeight.setTextLimit(5);
-		worldHeight.setText(worldHeight1 + "");
+		worldHeightText = new Text(parent, SWT.BORDER | SWT.WRAP);
+		worldHeightText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		worldHeightText.setTextLimit(5);
+		worldHeightText.setText(worldHeight + "");
 		
 		label = new Label(parent, SWT.LEFT);
 		label.setText("World Width: ");
 		
-		worldWidth = new Text(parent, SWT.BORDER | SWT.WRAP);
-		worldWidth.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		worldWidth.setTextLimit(5);
-		worldWidth.setText(worldWidth1 + "");
+		worldWidthText = new Text(parent, SWT.BORDER | SWT.WRAP);
+		worldWidthText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		worldWidthText.setTextLimit(5);
+		worldWidthText.setText(worldWidth + "");
 		
 		label = new Label(parent, SWT.LEFT);
 		label.setText("World Max Depth: ");
 
-		worldMaxDepth = new Text(parent, SWT.BORDER | SWT.WRAP);
-		worldMaxDepth.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		worldMaxDepth.setTextLimit(5);
-		worldMaxDepth.setText(worldMaxDepth1 + "");
+		worldMaxDepthText = new Text(parent, SWT.BORDER | SWT.WRAP);
+		worldMaxDepthText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		worldMaxDepthText.setTextLimit(5);
+		worldMaxDepthText.setText(worldMaxDepth + "");
 		
 		new Label(parent, SWT.LEFT);
 		new Label(parent, SWT.LEFT);
@@ -110,44 +110,44 @@ public class PlanetInitialConfigurationWindow {
 		label.setText("Fishes Parameters");
 		
 		label = new Label(parent, SWT.LEFT);
-		label.setText("fishLifeTime: ");
+		label.setText("fishLifeTimeText: ");
 		
-		fishLifeTime = new Text(parent, SWT.BORDER | SWT.WRAP);
-		fishLifeTime.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		fishLifeTime.setTextLimit(5);
-		fishLifeTime.setText(fishLifeTime1 + "");
-		
-		label = new Label(parent, SWT.LEFT);
-		label.setText("fishMaxReproductives: ");
-		
-		fishMaxReproductives = new Text(parent, SWT.BORDER | SWT.WRAP);
-		fishMaxReproductives.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		fishMaxReproductives.setTextLimit(5);
-		fishMaxReproductives.setText(fishMaxReproductives1 + "");
+		fishLifeTimeText = new Text(parent, SWT.BORDER | SWT.WRAP);
+		fishLifeTimeText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		fishLifeTimeText.setTextLimit(5);
+		fishLifeTimeText.setText(fishLifeTime + "");
 		
 		label = new Label(parent, SWT.LEFT);
-		label.setText("fishPregnantPeriod: ");
+		label.setText("fishMaxReproductivesText: ");
 		
-		fishPregnantPeriod = new Text(parent, SWT.BORDER | SWT.WRAP);
-		fishPregnantPeriod.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		fishPregnantPeriod.setTextLimit(5);
-		fishPregnantPeriod.setText(fishPregnantPeriod1 + "");
-		
-		label = new Label(parent, SWT.LEFT);
-		label.setText("fishSpeed: ");
-		
-		fishSpeed = new Text(parent, SWT.BORDER | SWT.WRAP);
-		fishSpeed.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		fishSpeed.setTextLimit(5);
-		fishSpeed.setText(fishSpeed1 + "");
+		fishMaxReproductivesText = new Text(parent, SWT.BORDER | SWT.WRAP);
+		fishMaxReproductivesText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		fishMaxReproductivesText.setTextLimit(5);
+		fishMaxReproductivesText.setText(fishMaxReproductives + "");
 		
 		label = new Label(parent, SWT.LEFT);
-		label.setText("fishMaxDepth: ");
+		label.setText("fishPregnantPeriodText: ");
 		
-		fishMaxDepth = new Text(parent, SWT.BORDER | SWT.WRAP);
-		fishMaxDepth.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		fishMaxDepth.setTextLimit(5);
-		fishMaxDepth.setText(fishMaxDepth1 + "");
+		fishPregnantPeriodText = new Text(parent, SWT.BORDER | SWT.WRAP);
+		fishPregnantPeriodText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		fishPregnantPeriodText.setTextLimit(5);
+		fishPregnantPeriodText.setText(fishPregnantPeriod + "");
+		
+		label = new Label(parent, SWT.LEFT);
+		label.setText("fishSpeedText: ");
+		
+		fishSpeedText = new Text(parent, SWT.BORDER | SWT.WRAP);
+		fishSpeedText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		fishSpeedText.setTextLimit(5);
+		fishSpeedText.setText(fishSpeed + "");
+		
+		label = new Label(parent, SWT.LEFT);
+		label.setText("fishMaxDepthText: ");
+		
+		fishMaxDepthText = new Text(parent, SWT.BORDER | SWT.WRAP);
+		fishMaxDepthText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		fishMaxDepthText.setTextLimit(5);
+		fishMaxDepthText.setText(fishMaxDepth + "");
 		
 		// Shark
 		label = new Label(parent, SWT.LEFT);
@@ -156,52 +156,52 @@ public class PlanetInitialConfigurationWindow {
 		label.setText("Sharkes Parameters");
 		
 		label = new Label(parent, SWT.LEFT);
-		label.setText("sharkLifeTime: ");
+		label.setText("sharkLifeTimeText: ");
 		
-		sharkLifeTime = new Text(parent, SWT.BORDER | SWT.WRAP);
-		sharkLifeTime.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		sharkLifeTime.setTextLimit(5);
-		sharkLifeTime.setText(sharkLifeTime1 + "");
-		
-		label = new Label(parent, SWT.LEFT);
-		label.setText("sharkMaxReproductives: ");
-		
-		sharkMaxReproductives = new Text(parent, SWT.BORDER | SWT.WRAP);
-		sharkMaxReproductives.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		sharkMaxReproductives.setTextLimit(5);
-		sharkMaxReproductives.setText(sharkMaxReproductives1 + "");
+		sharkLifeTimeText = new Text(parent, SWT.BORDER | SWT.WRAP);
+		sharkLifeTimeText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		sharkLifeTimeText.setTextLimit(5);
+		sharkLifeTimeText.setText(sharkLifeTime + "");
 		
 		label = new Label(parent, SWT.LEFT);
-		label.setText("sharkPregnantPeriod: ");
+		label.setText("sharkMaxReproductivesText: ");
 		
-		sharkPregnantPeriod = new Text(parent, SWT.BORDER | SWT.WRAP);
-		sharkPregnantPeriod.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		sharkPregnantPeriod.setTextLimit(5);
-		sharkPregnantPeriod.setText(sharkPregnantPeriod1 + "");
-		
-		label = new Label(parent, SWT.LEFT);
-		label.setText("sharkMaxHungerTime: ");
-		
-		sharkMaxHungerTime = new Text(parent, SWT.BORDER | SWT.WRAP);
-		sharkMaxHungerTime.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		sharkMaxHungerTime.setTextLimit(5);
-		sharkMaxHungerTime.setText(sharkMaxHungerTime1 + "");
+		sharkMaxReproductivesText = new Text(parent, SWT.BORDER | SWT.WRAP);
+		sharkMaxReproductivesText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		sharkMaxReproductivesText.setTextLimit(5);
+		sharkMaxReproductivesText.setText(sharkMaxReproductives + "");
 		
 		label = new Label(parent, SWT.LEFT);
-		label.setText("sharkSpeed: ");
+		label.setText("sharkPregnantPeriodText: ");
 		
-		sharkSpeed = new Text(parent, SWT.BORDER | SWT.WRAP);
-		sharkSpeed.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		sharkSpeed.setTextLimit(5);
-		sharkSpeed.setText(sharkSpeed1 + "");
+		sharkPregnantPeriodText = new Text(parent, SWT.BORDER | SWT.WRAP);
+		sharkPregnantPeriodText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		sharkPregnantPeriodText.setTextLimit(5);
+		sharkPregnantPeriodText.setText(sharkPregnantPeriod + "");
 		
 		label = new Label(parent, SWT.LEFT);
-		label.setText("sharkMaxDepth: ");
+		label.setText("sharkMaxHungerTimeText: ");
 		
-		sharkMaxDepth = new Text(parent, SWT.BORDER | SWT.WRAP);
-		sharkMaxDepth.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		sharkMaxDepth.setTextLimit(5);
-		sharkMaxDepth.setText(sharkMaxDepth1 + "");
+		sharkMaxHungerTimeText = new Text(parent, SWT.BORDER | SWT.WRAP);
+		sharkMaxHungerTimeText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		sharkMaxHungerTimeText.setTextLimit(5);
+		sharkMaxHungerTimeText.setText(sharkMaxHungerTime + "");
+		
+		label = new Label(parent, SWT.LEFT);
+		label.setText("sharkSpeedText: ");
+		
+		sharkSpeedText = new Text(parent, SWT.BORDER | SWT.WRAP);
+		sharkSpeedText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		sharkSpeedText.setTextLimit(5);
+		sharkSpeedText.setText(sharkSpeed + "");
+		
+		label = new Label(parent, SWT.LEFT);
+		label.setText("sharkMaxDepthText: ");
+		
+		sharkMaxDepthText = new Text(parent, SWT.BORDER | SWT.WRAP);
+		sharkMaxDepthText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		sharkMaxDepthText.setTextLimit(5);
+		sharkMaxDepthText.setText(sharkMaxDepth + "");
 		
 		// countes
 		label = new Label(parent, SWT.LEFT);
@@ -210,20 +210,20 @@ public class PlanetInitialConfigurationWindow {
 		label.setText("Initial Count Parameters");
 		
 		label = new Label(parent, SWT.LEFT);
-		label.setText("initialFishesCount: ");
+		label.setText("initialFishesCountText: ");
 		
-		initialFishesCount = new Text(parent, SWT.BORDER | SWT.WRAP);
-		initialFishesCount.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		initialFishesCount.setTextLimit(5);
-		initialFishesCount.setText(initialFishesCount1 + "");
+		initialFishesCountText = new Text(parent, SWT.BORDER | SWT.WRAP);
+		initialFishesCountText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		initialFishesCountText.setTextLimit(5);
+		initialFishesCountText.setText(initialFishesCount + "");
 		
 		label = new Label(parent, SWT.LEFT);
-		label.setText("initialSharkesCount: ");
+		label.setText("initialSharkesCountText: ");
 		
-		initialSharkesCount = new Text(parent, SWT.BORDER | SWT.WRAP);
-		initialSharkesCount.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		initialSharkesCount.setTextLimit(5);
-		initialSharkesCount.setText(initialSharkesCount1 + "");
+		initialSharkesCountText = new Text(parent, SWT.BORDER | SWT.WRAP);
+		initialSharkesCountText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		initialSharkesCountText.setTextLimit(5);
+		initialSharkesCountText.setText(initialSharkesCount + "");
 		
 		///////////////
 		new Label(parent, SWT.LEFT);
@@ -265,41 +265,32 @@ public class PlanetInitialConfigurationWindow {
 		return isOK;
 	}
 	
-	public int getX() {
-		return Integer.valueOf(worldHeight.getText());
-	}
-	
-	public int getY() {
-		return Integer.valueOf(worldWidth.getText());
-	}
-	
-	
 	public void dispose() {}
 	
 	private void loadParameters() {
-		worldHeight1 = 180;
-		worldWidth1 = 180;
-		worldMaxDepth1 = 70;
+		worldHeight = 180;
+		worldWidth = 180;
+		worldMaxDepth = 70;
 
-		fishLifeTime1 = 70;
-		fishMaxReproductives1 = 3;
-		fishPregnantPeriod1 = 28;
-		fishSpeed1 =  1;
-		fishMaxDepth1 = 8;
+		fishLifeTime = 70;
+		fishMaxReproductives = 3;
+		fishPregnantPeriod = 28;
+		fishSpeed =  1;
+		fishMaxDepth = 8;
 
-		sharkLifeTime1 = 110;
-		sharkMaxReproductives1 = 3; 
-		sharkPregnantPeriod1 = 55;
-		sharkMaxHungerTime1 = 18;
-		sharkSpeed1 = 3;
-		sharkMaxDepth1 = 5;
+		sharkLifeTime = 110;
+		sharkMaxReproductives = 3;
+		sharkPregnantPeriod = 55;
+		sharkMaxHungerTime = 18;
+		sharkSpeed = 3;
+		sharkMaxDepth = 5;
 		
-		initialFishesCount1 = 12;
-		initialSharkesCount1 = 9;
+		initialFishesCount = 12;
+		initialSharkesCount = 9;
 		
 		Properties props = new Properties();
 		
-		FileInputStream fis = null;
+		FileInputStream fis;
 		try {
 			fis = new FileInputStream("world.config");
 			props.load(fis);
@@ -313,89 +304,146 @@ public class PlanetInitialConfigurationWindow {
 		}
 		
 		try {
-			worldHeight1 = Integer.valueOf(props.getProperty("worldHeight"));
-			worldWidth1 = Integer.valueOf(props.getProperty("worldWidth"));
-			worldMaxDepth1 = Integer.valueOf(props.getProperty("worldMaxDepth"));
+			worldHeight = Integer.valueOf(props.getProperty("worldHeight"));
+			worldWidth = Integer.valueOf(props.getProperty("worldWidth"));
+			worldMaxDepth = Integer.valueOf(props.getProperty("worldMaxDepth"));
 
-			fishLifeTime1 = Integer.valueOf(props.getProperty("fishLifeTime"));
-			fishMaxReproductives1 = Integer.valueOf(props.getProperty("fishMaxReproductives"));
-			fishPregnantPeriod1 = Integer.valueOf(props.getProperty("fishPregnantPeriod"));
-			fishSpeed1 = Integer.valueOf(props.getProperty("fishSpeed"));
-			fishMaxDepth1 = Integer.valueOf(props.getProperty("fishMaxDepth"));
+			fishLifeTime = Integer.valueOf(props.getProperty("fishLifeTime"));
+			fishMaxReproductives = Integer.valueOf(props.getProperty("fishMaxReproductives"));
+			fishPregnantPeriod = Integer.valueOf(props.getProperty("fishPregnantPeriod"));
+			fishSpeed = Integer.valueOf(props.getProperty("fishSpeed"));
+			fishMaxDepth = Integer.valueOf(props.getProperty("fishMaxDepth"));
 
-			sharkLifeTime1 = Integer.valueOf(props.getProperty("sharkLifeTime"));
-			sharkMaxReproductives1 = Integer.valueOf(props.getProperty("sharkMaxReproductives"));
-			sharkPregnantPeriod1 = Integer.valueOf(props.getProperty("sharkPregnantPeriod"));
-			sharkMaxHungerTime1 = Integer.valueOf(props.getProperty("sharkMaxHungerTime"));
-			sharkSpeed1 = Integer.valueOf(props.getProperty("sharkSpeed"));
-			sharkMaxDepth1 = Integer.valueOf(props.getProperty("sharkMaxDepth"));
+			sharkLifeTime = Integer.valueOf(props.getProperty("sharkLifeTime"));
+			sharkMaxReproductives = Integer.valueOf(props.getProperty("sharkMaxReproductives"));
+			sharkPregnantPeriod = Integer.valueOf(props.getProperty("sharkPregnantPeriod"));
+			sharkMaxHungerTime = Integer.valueOf(props.getProperty("sharkMaxHungerTime"));
+			sharkSpeed = Integer.valueOf(props.getProperty("sharkSpeed"));
+			sharkMaxDepth = Integer.valueOf(props.getProperty("sharkMaxDepth"));
 
-			initialFishesCount1 = Integer.valueOf(props.getProperty("initialFishesCount"));
-			initialSharkesCount1 = Integer.valueOf(props.getProperty("initialSharkesCount"));
+			initialFishesCount = Integer.valueOf(props.getProperty("initialFishesCount"));
+			initialSharkesCount = Integer.valueOf(props.getProperty("initialSharkesCount"));
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}
 	
 	private void saveParameters() {
-		worldHeight1 = Integer.valueOf(worldHeight.getText());
-		worldWidth1 = Integer.valueOf(worldWidth.getText());
-		worldMaxDepth1 = Integer.valueOf(worldMaxDepth.getText());
+		worldHeight = Integer.valueOf(worldHeightText.getText());
+		worldWidth = Integer.valueOf(worldWidthText.getText());
+		worldMaxDepth = Integer.valueOf(worldMaxDepthText.getText());
 
-		fishLifeTime1 = Integer.valueOf(fishLifeTime.getText());
-		fishMaxReproductives1 = Integer.valueOf(fishMaxReproductives.getText());
-		fishPregnantPeriod1 = Integer.valueOf(fishPregnantPeriod.getText());
-		fishSpeed1 = Integer.valueOf(fishSpeed.getText());
-		fishMaxDepth1 = Integer.valueOf(fishMaxDepth.getText());
+		fishLifeTime = Integer.valueOf(fishLifeTimeText.getText());
+		fishMaxReproductives = Integer.valueOf(fishMaxReproductivesText.getText());
+		fishPregnantPeriod = Integer.valueOf(fishPregnantPeriodText.getText());
+		fishSpeed = Integer.valueOf(fishSpeedText.getText());
+		fishMaxDepth = Integer.valueOf(fishMaxDepthText.getText());
 
-		sharkLifeTime1 = Integer.valueOf(sharkLifeTime.getText());
-		sharkMaxReproductives1 = Integer.valueOf(sharkMaxReproductives.getText());
-		sharkPregnantPeriod1 = Integer.valueOf(sharkPregnantPeriod.getText());
-		sharkMaxHungerTime1 = Integer.valueOf(sharkMaxHungerTime.getText());
-		sharkSpeed1 = Integer.valueOf(sharkSpeed.getText());
-		sharkMaxDepth1 = Integer.valueOf(sharkMaxDepth.getText());
+		sharkLifeTime = Integer.valueOf(sharkLifeTimeText.getText());
+		sharkMaxReproductives = Integer.valueOf(sharkMaxReproductivesText.getText());
+		sharkPregnantPeriod = Integer.valueOf(sharkPregnantPeriodText.getText());
+		sharkMaxHungerTime = Integer.valueOf(sharkMaxHungerTimeText.getText());
+		sharkSpeed = Integer.valueOf(sharkSpeedText.getText());
+		sharkMaxDepth = Integer.valueOf(sharkMaxDepthText.getText());
 		
-		initialFishesCount1 = Integer.valueOf(initialFishesCount.getText());;
-		initialSharkesCount1 = Integer.valueOf(initialSharkesCount.getText());;
+		initialFishesCount = Integer.valueOf(initialFishesCountText.getText());;
+		initialSharkesCount = Integer.valueOf(initialSharkesCountText.getText());;
 		
 		Properties props = new Properties();
 		
-		props.setProperty("worldHeight", worldHeight1 + "");
-		props.setProperty("worldWidth", worldWidth1 + "");
-		props.setProperty("worldMaxDepth", worldMaxDepth1 + "");
+		props.setProperty("worldHeight", worldHeight + "");
+		props.setProperty("worldWidth", worldWidth + "");
+		props.setProperty("worldMaxDepth", worldMaxDepth + "");
 		
-		props.setProperty("fishLifeTime", fishLifeTime1 + "");
-		props.setProperty("fishMaxReproductives", fishMaxReproductives1 + "");
-		props.setProperty("fishPregnantPeriod", fishPregnantPeriod1 + "");
-		props.setProperty("fishSpeed", fishSpeed1 + "");
-		props.setProperty("fishMaxDepth",fishMaxDepth1  + "");
+		props.setProperty("fishLifeTime", fishLifeTime + "");
+		props.setProperty("fishMaxReproductives", fishMaxReproductives + "");
+		props.setProperty("fishPregnantPeriod", fishPregnantPeriod + "");
+		props.setProperty("fishSpeed", fishSpeed + "");
+		props.setProperty("fishMaxDepth", fishMaxDepth + "");
 		
-		props.setProperty("sharkLifeTime", sharkLifeTime1 + "");
-		props.setProperty("sharkMaxReproductives", sharkMaxReproductives1 + "");
-		props.setProperty("sharkPregnantPeriod", sharkPregnantPeriod1 + "");
-		props.setProperty("sharkMaxHungerTime", sharkMaxHungerTime1 + "");
-		props.setProperty("sharkSpeed", sharkSpeed1 + "");
-		props.setProperty("sharkMaxDepth", sharkMaxDepth1 + "");
+		props.setProperty("sharkLifeTime", sharkLifeTime + "");
+		props.setProperty("sharkMaxReproductives", sharkMaxReproductives + "");
+		props.setProperty("sharkPregnantPeriod", sharkPregnantPeriod + "");
+		props.setProperty("sharkMaxHungerTime", sharkMaxHungerTime + "");
+		props.setProperty("sharkSpeed", sharkSpeed + "");
+		props.setProperty("sharkMaxDepth", sharkMaxDepth + "");
 		
-		props.setProperty("initialFishesCount", initialFishesCount1 + "");
-		props.setProperty("initialSharkesCount", initialSharkesCount1 + "");
+		props.setProperty("initialFishesCount", initialFishesCount + "");
+		props.setProperty("initialSharkesCount", initialSharkesCount + "");
 		
-		FileOutputStream fos = null;
+		FileOutputStream fos;
 		try {
 			fos = new FileOutputStream("world.config");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
 
-		try {
 			props.store(fos, "World Config");
 			fos.flush();
 			fos.close();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
-		
-		
 	}
-	
+
+	public int getWorldHeight() {
+		return worldHeight;
+	}
+
+	public int getWorldWidth() {
+		return worldWidth;
+	}
+
+	public int getWorldMaxDepth() {
+		return worldMaxDepth;
+	}
+
+	public int getFishLifeTime() {
+		return fishLifeTime;
+	}
+
+	public int getFishMaxReproductives() {
+		return fishMaxReproductives;
+	}
+
+	public int getFishPregnantPeriod() {
+		return fishPregnantPeriod;
+	}
+
+	public int getFishSpeed() {
+		return fishSpeed;
+	}
+
+	public int getFishMaxDepth() {
+		return fishMaxDepth;
+	}
+
+	public int getSharkLifeTime() {
+		return sharkLifeTime;
+	}
+
+	public int getSharkMaxReproductives() {
+		return sharkMaxReproductives;
+	}
+
+	public int getSharkPregnantPeriod() {
+		return sharkPregnantPeriod;
+	}
+
+	public int getSharkMaxHungerTime() {
+		return sharkMaxHungerTime;
+	}
+
+	public int getSharkSpeed() {
+		return sharkSpeed;
+	}
+
+	public int getSharkMaxDepth() {
+		return sharkMaxDepth;
+	}
+
+	public int getInitialFishesCount() {
+		return initialFishesCount;
+	}
+
+	public int getInitialSharkesCount() {
+		return initialSharkesCount;
+	}
 }

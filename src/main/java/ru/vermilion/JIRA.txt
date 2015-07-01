@@ -1,0 +1,6 @@
+- [1]  BUG: Some Windows sometime terminates because of undetected reason.
+- [2]  BUG: Window can be closed, but can not be revived
+- [3]  TASK: Add Running time
+
+
+

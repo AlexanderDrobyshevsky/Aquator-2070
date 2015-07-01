@@ -66,12 +66,7 @@ public abstract class AbstractInhabitant implements IInhabitant {
 		newPosition = AquatorPlanetHelper.adjustPlanetPosition(newPosition);
 		
 		PlanetPosition oldPosition = this.position;
-		
-		// code_7
-//		if (this instanceof Shark) {
-//			System.out.println("Shark #" + getId() + " moves from " + oldPosition + " to " + newPosition);
-//		}
-		
+
 		if (!this.position.equals(newPosition)) {
 			aquator.removeInhabitant(this);
 			aquator.getInhabitants(newPosition).put(id, this);
@@ -105,8 +100,7 @@ public abstract class AbstractInhabitant implements IInhabitant {
 		
 		PlanetPosition newPosition = position.addPosition(nearestPositions[move]);
 		
-		setPosition(AquatorPlanetHelper.adjustPlanetPosition(newPosition),
-				gc, shell, currentLand);		
+		setPosition(AquatorPlanetHelper.adjustPlanetPosition(newPosition), gc, shell, currentLand);
 	}
 	
 	public void doRemove() {
