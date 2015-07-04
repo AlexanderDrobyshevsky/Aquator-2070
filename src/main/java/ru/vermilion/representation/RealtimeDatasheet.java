@@ -75,7 +75,6 @@ public class RealtimeDatasheet extends Thread {
 	private Button minimumSharksButton;
 	private Button maximumSharksButton;
 
-	private Button timePassedButton;
 	private Button cycleButton;
 	
 	
@@ -95,7 +94,7 @@ public class RealtimeDatasheet extends Thread {
 		
 		// realtime environment 
 		itrxButton = createButtonedLabel2x(datasheetComposite11, "Iteration:", "0");
-		createButtonedLabel2x(datasheetComposite11, "Cycle:", "0");
+		cycleButton = createButtonedLabel2x(datasheetComposite11, "Cycle:", "0");
 		fishesButton = createButtonedLabel2x(datasheetComposite11, "Fishes:", "0");
 		sharksButton = createButtonedLabel2x(datasheetComposite11, "Sharks:", "0");
 
@@ -226,18 +225,20 @@ public class RealtimeDatasheet extends Thread {
 
 			public void run() {
 				if (windowShell.isDisposed()) {
-				   return;
+					return;
 				}
-					
+
 				int itrx = egd.getIterationsCount() - 1;
-			  	itrxButton.setText(itrx + "");
-			  	fishesButton.setText(egd.getFishesCount(itrx) + "");
-			  	sharksButton.setText(egd.getSharksCount(itrx) + "");
+				itrxButton.setText(itrx + "");
+				fishesButton.setText(egd.getFishesCount(itrx) + "");
+				sharksButton.setText(egd.getSharksCount(itrx) + "");
 
 				minimumFishesButton.setText(egd.getMinFishes() + "");
 				maximumFishesButton.setText(egd.getMaxFishes() + "");
 				minimumSharksButton.setText(egd.getMinSharks() + "");
 				maximumSharksButton.setText(egd.getMaxSharks() + "");
+
+				cycleButton.setText(egd.getCycle() + "");
 
 				runningTimeButton.setText(CommonHelper.getElapsedTime(startTime));
 			}

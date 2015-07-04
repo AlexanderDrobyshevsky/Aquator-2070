@@ -1,14 +1,16 @@
-- [1]  BUG: Some Windows sometime terminates because of undetected reason.
+- [1]  BUG: sometime some Windows terminates because of undetected reason.
 - [2]  BUG: Window can be closed, but can not be revived
 + [3]  TASK: Add Running time
 + [4]  TASK: Add min/max calculations on realtime datasheet
-- [5]  TASK: Add cycle calculation on realtime datasheet
-- [6]  TASK: Main Window - remove obsolete buttons
++ [5]  TASK: Add cycle calculation on realtime datasheet
+- [6]  TASK: Main Window - remove obsolete buttons (amend [11] at first)
 - [7]  TASK: On Run - Place all windows beautifully
 - [8]  TASK: Add validators on configuration window
 - [9]  TASK(Tech): Refactor Initial Configuration class
 - [10] TASK: Make up how to proceed with current world after program termination
 - [11] BUG: Current Iteration number is not correct in Realtime Datasheet
+- [12] TASK: Add iter/sec in Realtime Datasheet
+- [13] TASK: Improve cycle calculation on realtime datasheet algorithm
 
 
 
