@@ -1,6 +1,7 @@
 package ru.vermilion.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -21,17 +22,17 @@ public class EmpiricGraphicData {
 
 	private CycleState cycleState = CycleState.STATE_1;
 
+	private final static int APPROXIMATION = 12;
+
 	private enum CycleState {
 		STATE_1(new ICycleState() {
 			@Override
 			public EmpiricGraphicData.CycleState handle(EmpiricGraphicData data) {
-				if (data.fishes.size() < 10) {
+				if (data.fishes.size() < APPROXIMATION + 2) {
 					return STATE_1;
 				}
 
-				Differ3Values diffs = get3differ(data.fishes);
-				if (diffs.a < diffs.b && diffs.b > diffs.c) {
-					System.out.println("Switch state State_2");
+				if (isValuesHasLocalTop(getDifferValues(data.fishes, APPROXIMATION), APPROXIMATION)) {
 					return CycleState.STATE_2;
 				}
 
@@ -42,9 +43,7 @@ public class EmpiricGraphicData {
 		STATE_2(new ICycleState() {
 			@Override
 			public CycleState handle(EmpiricGraphicData data) {
-				Differ3Values diffs = get3differ(data.sharks);
-				if (diffs.a < diffs.b && diffs.b > diffs.c) {
-					System.out.println("Switch state State_3");
+				if (isValuesHasLocalTop(getDifferValues(data.sharks, APPROXIMATION), APPROXIMATION)) {
 					return CycleState.STATE_3;
 				}
 
@@ -55,9 +54,7 @@ public class EmpiricGraphicData {
 		STATE_3(new ICycleState() {
 			@Override
 			public CycleState handle(EmpiricGraphicData data) {
-				Differ3Values diffs = get3differ(data.fishes);
-				if (diffs.a > diffs.b && diffs.b < diffs.c) {
-					System.out.println("Switch state State_4");
+				if (isValuesHasLocalDint(getDifferValues(data.fishes, APPROXIMATION), APPROXIMATION)) {
 					return CycleState.STATE_4;
 				}
 
@@ -68,9 +65,7 @@ public class EmpiricGraphicData {
 		STATE_4(new ICycleState() {
 			@Override
 			public CycleState handle(EmpiricGraphicData data) {
-				Differ3Values diffs = get3differ(data.sharks);
-				if (diffs.a > diffs.b && diffs.b < diffs.c) {
-					System.out.println("Switch state State_1");
+				if (isValuesHasLocalDint(getDifferValues(data.sharks, APPROXIMATION), APPROXIMATION)) {
 					data.cycle++;
 					return CycleState.STATE_1;
 				}
@@ -90,35 +85,63 @@ public class EmpiricGraphicData {
 		};
 	}
 
-	private static class Differ3Values {
-		int a,b,c;
+	private static List<Integer> getDifferValues(List<Integer> collection, int count) {
+		List<Integer> differValues = new ArrayList<>();
 
-		public Differ3Values(int a, int b, int c) {
-			this.a = a;
-			this.b = b;
-			this.c = c;
+		int i = collection.size() - 1;
+		int value = collection.get(i);
+		differValues.add(value);
+
+		while (i > 0 && differValues.size() < count) {
+			i--;
+			value = collection.get(i);
+
+			if (value != differValues.get(differValues.size() - 1)) {
+				differValues.add(value);
+			}
 		}
 
+		return differValues;
 	}
 
-	private static Differ3Values get3differ(List<Integer> collection) {
-		assert collection.size() >= 3;
-		int a, b, c;
-		int i = collection.size() - 3;
-		a = collection.get(i + 2);
-		b = collection.get(i + 1);
-		while (a == b && i >= 0) {
-			b = collection.get(i);
-			i--;
+	private static boolean isValuesHasLocalTop(List<Integer> collection, int necessaryCount) {
+		assert necessaryCount >= 4;
+
+		if (collection.size() != necessaryCount) {
+			return false;
 		}
 
-		c = collection.get(i);
-		while (b == c && i > 0) {
-			i--;
-			c = collection.get(i);
+		int i = 0;
+		while (i + 2 < collection.size() && collection.get(i) < collection.get(i + 1)) {
+			i++;
 		}
 
-		return new Differ3Values(c,b,a);
+		int j = collection.size() - 1;
+		while (j - 1 > 0 && collection.get(j - 1) > collection.get(j)) {
+			j--;
+		}
+
+		return i == j;
+	}
+
+	private static boolean isValuesHasLocalDint(List<Integer> collection, int necessaryCount) {
+		assert necessaryCount >= 4;
+
+		if (collection.size() != necessaryCount) {
+			return false;
+		}
+
+		int i = 0;
+		while (i + 2 < collection.size() && collection.get(i) > collection.get(i + 1)) {
+			i++;
+		}
+
+		int j = collection.size() - 1;
+		while (j - 1 > 0 && collection.get(j - 1) < collection.get(j)) {
+			j--;
+		}
+
+		return i == j;
 	}
 
 	public interface ICycleState {

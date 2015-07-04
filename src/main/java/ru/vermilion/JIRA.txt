@@ -10,7 +10,7 @@
 - [10] TASK: Make up how to proceed with current world after program termination
 - [11] BUG: Current Iteration number is not correct in Realtime Datasheet
 - [12] TASK: Add iter/sec in Realtime Datasheet
-- [13] TASK: Improve cycle calculation on realtime datasheet algorithm
++ [13] TASK: Improve cycle calculation on realtime datasheet algorithm
 
 
 
