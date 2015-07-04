@@ -114,13 +114,12 @@ public class RealtimeDatasheet extends Thread {
 		datasheetComposite12.setLayout(compositeLayout);
 		
 		newSheet();
-		createButtonedLabel4x(datasheetComposite12, "Min fishes:", "0");
-		createButtonedLabel4x(datasheetComposite12, "Min sharks:", "0");
+		minimumFishesButton = createButtonedLabel(datasheetComposite12, "Min fishes:", "0", 75, 30);
+		maximumFishesButton = createButtonedLabel(datasheetComposite12, "Max fishes:", "0", 75, 60);
 		newLine();
-		createButtonedLabel4x(datasheetComposite12, "Max fishes:", "0");
-		createButtonedLabel4x(datasheetComposite12, "Max sharks:", "0");
-		
-		
+		minimumSharksButton = createButtonedLabel(datasheetComposite12, "Min sharks:", "0", 75, 30);
+		maximumSharksButton = createButtonedLabel(datasheetComposite12, "Max sharks:", "0", 75, 60);
+
 		Composite datasheetComposite21 = new Composite(composite, SWT.NONE);
 		
 		compositeLayout = new GridLayout(4, false);
@@ -235,6 +234,11 @@ public class RealtimeDatasheet extends Thread {
 			  	fishesButton.setText(egd.getFishesCount(itrx) + "");
 			  	sharksButton.setText(egd.getSharksCount(itrx) + "");
 
+				minimumFishesButton.setText(egd.getMinFishes() + "");
+				maximumFishesButton.setText(egd.getMaxFishes() + "");
+				minimumSharksButton.setText(egd.getMinSharks() + "");
+				maximumSharksButton.setText(egd.getMaxSharks() + "");
+
 				runningTimeButton.setText(CommonHelper.getElapsedTime(startTime));
 			}
 		});
@@ -252,7 +256,7 @@ public class RealtimeDatasheet extends Thread {
 	private Button createButtonedLabel4x(Composite composite, String name, String value) {
         return createButtonedLabel(composite, name, value, 100, 40);
 	}
-	
+
 	private void newLine() {
 		layoutAdjuster++; layoutAdjuster++;
 	}

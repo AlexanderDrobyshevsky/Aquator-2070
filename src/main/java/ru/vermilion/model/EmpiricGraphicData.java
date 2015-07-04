@@ -11,6 +11,11 @@ public class EmpiricGraphicData {
 	private List<Integer> fishes = new ArrayList<Integer>();
 	
 	private List<Integer> sharks = new ArrayList<Integer>();
+
+	private long minFishes = Integer.MAX_VALUE,
+			     maxFishes = 0,
+			     minSharks = Integer.MAX_VALUE,
+			     maxSharks = 0;
 	
 	private static EmpiricGraphicData instance = new EmpiricGraphicData();
 	
@@ -19,6 +24,12 @@ public class EmpiricGraphicData {
 	}
 	
 	public synchronized void add(int fishedCount, int sharksCount) {
+		minFishes = Math.min(minFishes, fishedCount);
+		maxFishes = Math.max(maxFishes, fishedCount);
+
+		minSharks = Math.min(minSharks, sharksCount);
+		maxSharks = Math.max(maxSharks, sharksCount);
+
 		fishes.add(fishedCount);
 		sharks.add(sharksCount);
 	}
@@ -42,5 +53,20 @@ public class EmpiricGraphicData {
 	public int getIterationsCount() {
 		return fishes.size();
 	}
-	
+
+	public long getMinFishes() {
+		return minFishes;
+	}
+
+	public long getMaxFishes() {
+		return maxFishes;
+	}
+
+	public long getMinSharks() {
+		return minSharks;
+	}
+
+	public long getMaxSharks() {
+		return maxSharks;
+	}
 }
