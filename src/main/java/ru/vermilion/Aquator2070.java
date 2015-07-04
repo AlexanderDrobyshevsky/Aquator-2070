@@ -1,5 +1,7 @@
 package ru.vermilion;
 
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import ru.vermilion.graphics.EllipseGraphicThreadWindow;
 import ru.vermilion.graphics.EmpiricGraphicThreadWindow;
 
@@ -13,6 +15,7 @@ import ru.vermilion.basic.AquatorPlanetHelper;
 
 public class Aquator2070 {
 
+    // refactor
 	private void start() {
 		Display display = new Display();
 		Shell shell = new Shell(display);
@@ -30,6 +33,7 @@ public class Aquator2070 {
 			}
 		}
 
+        // todo refactor
 		if (planetInitialConfigurationWindow.isOK() == null || !planetInitialConfigurationWindow.isOK()) {
 			System.exit(0);
 		}
@@ -45,6 +49,12 @@ public class Aquator2070 {
 		// Sets the layout for the shell
 		shell.setLayout(new GridLayout());
 		shell.setText("Life..");
+
+        shell.addDisposeListener(new DisposeListener() {
+            public void widgetDisposed(DisposeEvent disposeEvent) {
+                System.exit(0);
+            }
+        });
 
 		AquatorLife aquaLife = new AquatorLife(planetInitialConfigurationWindow);
 		aquaLife.aquatorLifeDraw(shell);
@@ -74,26 +84,6 @@ public class Aquator2070 {
 				break;
 			}
 		}
-
-		// ////////////////////////
-
-		// //display = new Display();
-		// shell = new Shell(display);
-		// //Sets the layout for the shell
-		// shell.setLayout(new GridLayout());
-		// shell.setText("World Configuration 2");
-		//		
-		// planetInitialConfigurationWindow = new
-		// PlanetInitialConfigurationWindow(shell);
-		// shell.open();
-		// while (!shell.isDisposed()) {
-		// if (!display.readAndDispatch())
-		// display.sleep();
-		//			
-		// if (planetInitialConfigurationWindow.isOK() != null) {
-		// break;
-		// }
-		// }
 
 		planetInitialConfigurationWindow.dispose();
 	}

@@ -1,6 +1,7 @@
 package ru.vermilion.representation;
 
 import ru.vermilion.PlanetInitialConfigurationWindow;
+import ru.vermilion.basic.CommonHelper;
 import ru.vermilion.model.EmpiricGraphicData;
 import ru.vermilion.model.IModelListener;
 import ru.vermilion.model.PlanetModelController;
@@ -26,6 +27,8 @@ public class RealtimeDatasheet extends Thread {
 	
 	private static final int SHELL_TRIM = SWT.TITLE | SWT.MIN; // SWT.CLOSE | SWT.MAX;  | SWT.RESIZE;
 
+	private long startTime;
+
 	public RealtimeDatasheet(PlanetInitialConfigurationWindow planetInitialConfiguration) {
 		this.planetInitialConfiguration = planetInitialConfiguration;
 	}
@@ -40,6 +43,8 @@ public class RealtimeDatasheet extends Thread {
 		newSheet();
 		
 		configureWindow();
+
+		startTime = System.currentTimeMillis();
 		
 		createContent(windowShell);
 		
@@ -63,7 +68,7 @@ public class RealtimeDatasheet extends Thread {
 	private Button itrxButton;
 	private Button fishesButton;
 	private Button sharksButton;
-	private Button runningTime;
+	private Button runningTimeButton;
 	
 	private Button minimumFishesButton;
 	private Button maximumFishesButton;
@@ -94,7 +99,7 @@ public class RealtimeDatasheet extends Thread {
 		fishesButton = createButtonedLabel2x(datasheetComposite11, "Fishes:", "0");
 		sharksButton = createButtonedLabel2x(datasheetComposite11, "Sharks:", "0");
 
-		runningTime = createButtonedLabel2x(datasheetComposite11, "Running Time:", "0");
+		runningTimeButton = createButtonedLabel2x(datasheetComposite11, "Running Time:", "0");
 		
 		Composite datasheetComposite12 = new Composite(datasheetComposite11, SWT.NONE);
 		gd = new GridData(GridData.FILL_HORIZONTAL);
@@ -210,7 +215,7 @@ public class RealtimeDatasheet extends Thread {
 		PlanetModelController.getInstance().addModelListener(modelListener);
 		
 		windowShell.addDisposeListener(new DisposeListener() {
-			
+
 			public void widgetDisposed(DisposeEvent e) {
 				PlanetModelController.getInstance().removeModelListener(modelListener);
 			}
@@ -229,12 +234,12 @@ public class RealtimeDatasheet extends Thread {
 			  	itrxButton.setText(itrx + "");
 			  	fishesButton.setText(egd.getFishesCount(itrx) + "");
 			  	sharksButton.setText(egd.getSharksCount(itrx) + "");
+
+				runningTimeButton.setText(CommonHelper.getElapsedTime(startTime));
 			}
 		});
 	}
-	
-	
-	
+
 	private static int layoutAdjuster = 0;
 	
 	private Button createButtonedLabel2x(Composite composite, String name, String value) {
