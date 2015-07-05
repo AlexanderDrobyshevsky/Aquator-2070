@@ -1,7 +1,6 @@
 package ru.vermilion.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -25,9 +24,9 @@ public class EmpiricGraphicData {
 	private final static int APPROXIMATION = 12;
 
 	private enum CycleState {
-		STATE_1(new ICycleState() {
+		STATE_1(new ICycleStateSwitcher() {
 			@Override
-			public EmpiricGraphicData.CycleState handle(EmpiricGraphicData data) {
+			public EmpiricGraphicData.CycleState switchState(EmpiricGraphicData data) {
 				if (data.fishes.size() < APPROXIMATION + 2) {
 					return STATE_1;
 				}
@@ -40,9 +39,9 @@ public class EmpiricGraphicData {
 			}
 		}),
 
-		STATE_2(new ICycleState() {
+		STATE_2(new ICycleStateSwitcher() {
 			@Override
-			public CycleState handle(EmpiricGraphicData data) {
+			public CycleState switchState(EmpiricGraphicData data) {
 				if (isValuesHasLocalTop(getDifferValues(data.sharks, APPROXIMATION), APPROXIMATION)) {
 					return CycleState.STATE_3;
 				}
@@ -51,9 +50,9 @@ public class EmpiricGraphicData {
 			}
 		}),
 
-		STATE_3(new ICycleState() {
+		STATE_3(new ICycleStateSwitcher() {
 			@Override
-			public CycleState handle(EmpiricGraphicData data) {
+			public CycleState switchState(EmpiricGraphicData data) {
 				if (isValuesHasLocalDint(getDifferValues(data.fishes, APPROXIMATION), APPROXIMATION)) {
 					return CycleState.STATE_4;
 				}
@@ -62,9 +61,9 @@ public class EmpiricGraphicData {
 			}
 		}),
 
-		STATE_4(new ICycleState() {
+		STATE_4(new ICycleStateSwitcher() {
 			@Override
-			public CycleState handle(EmpiricGraphicData data) {
+			public CycleState switchState(EmpiricGraphicData data) {
 				if (isValuesHasLocalDint(getDifferValues(data.sharks, APPROXIMATION), APPROXIMATION)) {
 					data.cycle++;
 					return CycleState.STATE_1;
@@ -74,14 +73,14 @@ public class EmpiricGraphicData {
 			}
 		});
 
-		private ICycleState cycleStateHandler;
+		private ICycleStateSwitcher cycleStateHandler;
 
-		CycleState(ICycleState cycleStateHandler) {
+		CycleState(ICycleStateSwitcher cycleStateHandler) {
 			this.cycleStateHandler = cycleStateHandler;
 		}
 
 		public CycleState switchState(EmpiricGraphicData data) {
-			return cycleStateHandler.handle(data);
+			return cycleStateHandler.switchState(data);
 		};
 	}
 
@@ -144,8 +143,8 @@ public class EmpiricGraphicData {
 		return i == j;
 	}
 
-	public interface ICycleState {
-		CycleState handle(EmpiricGraphicData data);
+	public interface ICycleStateSwitcher {
+		CycleState switchState(EmpiricGraphicData data);
 	}
 	
 	private static EmpiricGraphicData instance = new EmpiricGraphicData();

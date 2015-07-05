@@ -150,9 +150,9 @@ public class AquatorLife {
 			AquatorExecutive.IterationLateData iterationData = aquatorExecutive.nextIteration(gc, shell, currentLand);
 			aquatorExecutive.setLastRedrewIteration(aquatorExecutive.getCurrentIteration());
 
-			PlanetModelController.getInstance().update();
 			EmpiricGraphicData.getInstance().add(iterationData.getFishesCount(), iterationData.getSharksCount());
-			
+			PlanetModelController.getInstance().update();
+
 			if (iterationData.getFishesCount() + iterationData.getSharksCount() == 0) {
 				theEnd = true;
 				System.out.println("The End!");
@@ -160,7 +160,7 @@ public class AquatorLife {
 			
 			System.out.println("ITER:--" + aquatorExecutive.getCurrentIteration() + "--; Fishes:Sharks = " + 
 					iterationData.getFishesCount() + ":" + iterationData.getSharksCount() + "--");
-			
+
 			isHandling = false;
 			
 			return;
@@ -180,16 +180,16 @@ public class AquatorLife {
 			}
 			
 			AquatorExecutive.IterationLateData iterationData = aquatorExecutive.nextIteration(gc, shell, currentLand);
-			
+			EmpiricGraphicData.getInstance().add(iterationData.getFishesCount(), iterationData.getSharksCount());
 			PlanetModelController.getInstance().update();
 			
 			fishLabel.setText("F: --" + iterationData.getFishesCount() + "--;");
 			sharkLabel.setText("S: --" + iterationData.getSharksCount() + "--;");
 			cntLabel.setText("ITER:--" + aquatorExecutive.getCurrentIteration() + "--;");
-			
-			EmpiricGraphicData.getInstance().add(iterationData.getFishesCount(), iterationData.getSharksCount());
+
 
 			dr.layout(true, true);
+
 
 			aquatorExecutive.setLastRedrewIteration(aquatorExecutive.getCurrentIteration());
 			
@@ -199,7 +199,6 @@ public class AquatorLife {
 			}
 
 			System.out.println("ITER:--" + aquatorExecutive.getCurrentIteration() + "--;");
-
 		}
 	}
 

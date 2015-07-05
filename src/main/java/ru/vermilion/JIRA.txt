@@ -6,10 +6,10 @@
 - [6]  TASK: Main Window - remove obsolete buttons (amend [11] at first)
 - [7]  TASK: On Run - Place all windows beautifully
 - [8]  TASK: Add validators on configuration window
-- [9]  TASK(Tech): Refactor Initial Configuration class
+x [9]- TASK(Tech): Refactor Initial Configuration class
 - [10] TASK: Make up how to proceed with current world after program termination
-- [11] BUG: Current Iteration number is not correct in Realtime Datasheet
-- [12] TASK: Add iter/sec in Realtime Datasheet
++ [11] BUG: Current Iteration number is not correct in Realtime Datasheet
+x [12]-TASK: Add iter/sec in Realtime Datasheet
 + [13] TASK: Improve cycle calculation on realtime datasheet algorithm
 
 
