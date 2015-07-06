@@ -30,13 +30,13 @@ public class AquatorLife {
 
 	private Composite surface;
 
-	private Composite dr;
-
-	private Label fishLabel;
-
-	private Label sharkLabel;
-
-	private Label cntLabel;
+//	private Composite dr;
+//
+//	private Label fishLabel;
+//
+//	private Label sharkLabel;
+//
+//	private Label cntLabel;
 
 	private boolean isHandling = false;
 
@@ -59,18 +59,23 @@ public class AquatorLife {
 	private int[][] currentLand;
 
 	public void aquatorLifeDraw(Composite parent) {
-
 		final int width = AquatorPlanetConfiguration.getWidth();
 		final int height = AquatorPlanetConfiguration.getHeight();
 
 		currentLand = new int[height][width];
 
 		GridLayout parentLayout = new GridLayout();
+		parentLayout.numColumns = 1;
+		parentLayout.marginWidth = 0;
+		parentLayout.marginHeight = 0;
 		parent.setLayout(parentLayout);
-		parentLayout.numColumns = 2;
-		parent.setSize(width + 100, height + 100);
 
 		surface = new Composite(parent, SWT.NONE);
+
+		GridData gd1 = new GridData(width, height);
+		gd1.horizontalIndent = 0;
+		gd1.verticalIndent = 0;
+		surface.setLayoutData(gd1);
 
 		surface.addPaintListener(new PaintListener() {
 			public void paintControl(PaintEvent e) {
@@ -82,60 +87,7 @@ public class AquatorLife {
 
 		Color colorBlack = parent.getDisplay().getSystemColor(SWT.COLOR_BLACK);
 		surface.setBackground(colorBlack);
-
-		parentLayout = new GridLayout();
-		surface.setLayout(parentLayout);
-		parentLayout.numColumns = 1;
-		parentLayout.marginHeight = 0;
-		parentLayout.marginWidth = 0;
-		surface.setSize(width, height);
-
-		GridData gd1 = new GridData(width, height);
-		surface.setLayoutData(gd1);
-
-		// /////// surface
-		new Composite(parent, SWT.NONE);
-
-		Composite child = new Composite(parent, SWT.BORDER);
-		dr = child;
-		parentLayout = new GridLayout();
-		child.setLayout(parentLayout);
-		parentLayout.numColumns = 5;
-
-		Button nextButton = new Button(child, SWT.PUSH);
-		GridData gd = new GridData(GridData.END);
-		gd.verticalAlignment = 100;
-		gd.minimumHeight = 100;
-		nextButton.setLayoutData(gd);
-		nextButton.setText("Next >>");
-		nextButton.setEnabled(true);
-		nextButton.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e) {
-				nextIteration();
-			}
-		});
-
-		Button cancelButton = new Button(child, SWT.PUSH);
-		gd = new GridData(GridData.END);
-		gd.verticalAlignment = 100;
-		gd.minimumHeight = 100;
-		cancelButton.setLayoutData(gd);
-		cancelButton.setText("Cancel");
-		cancelButton.setEnabled(true);
-		cancelButton.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e) {
-				isCancel = true;
-			}
-		});
-
-		cntLabel = new Label(child, SWT.NO_BACKGROUND);
-		cntLabel.setText("ITER: ----------------------------------");
-
-		fishLabel = new Label(child, SWT.NO_BACKGROUND);
-		fishLabel.setText("F:");
-
-		sharkLabel = new Label(child, SWT.NO_BACKGROUND);
-		sharkLabel.setText("S:");
+		parent.pack();
 	}
 
 	boolean theEnd = false;
@@ -183,14 +135,6 @@ public class AquatorLife {
 			EmpiricGraphicData.getInstance().add(iterationData.getFishesCount(), iterationData.getSharksCount());
 			PlanetModelController.getInstance().update();
 			
-			fishLabel.setText("F: --" + iterationData.getFishesCount() + "--;");
-			sharkLabel.setText("S: --" + iterationData.getSharksCount() + "--;");
-			cntLabel.setText("ITER:--" + aquatorExecutive.getCurrentIteration() + "--;");
-
-
-			dr.layout(true, true);
-
-
 			aquatorExecutive.setLastRedrewIteration(aquatorExecutive.getCurrentIteration());
 			
 			if (iterationData.getFishesCount() + iterationData.getSharksCount() == 0) {

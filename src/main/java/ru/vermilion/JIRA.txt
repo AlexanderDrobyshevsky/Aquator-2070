@@ -3,7 +3,7 @@
 + [3]  TASK: Add Running time
 + [4]  TASK: Add min/max calculations on realtime datasheet
 + [5]  TASK: Add cycle calculation on realtime datasheet
-- [6]  TASK: Main Window - remove obsolete buttons (amend [11] at first)
++ [6]  TASK: Main Window - remove obsolete buttons (amend [11] at first)
 - [7]  TASK: On Run - Place all windows beautifully
 - [8]  TASK: Add validators on configuration window
 x [9]- TASK(Tech): Refactor Initial Configuration class
@@ -11,6 +11,8 @@ x [9]- TASK(Tech): Refactor Initial Configuration class
 + [11] BUG: Current Iteration number is not correct in Realtime Datasheet
 x [12]-TASK: Add iter/sec in Realtime Datasheet
 + [13] TASK: Improve cycle calculation on realtime datasheet algorithm
-
++ [14] TASK: Move buttons from main window to Realtime Datasheet window
+- [15] TASK: Pause/Next Step implementation
+- [16] TASK: New simulation button implementation
 
 

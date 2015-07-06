@@ -1,5 +1,6 @@
 package ru.vermilion;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import ru.vermilion.graphics.EllipseGraphicThreadWindow;
@@ -45,16 +46,16 @@ public class Aquator2070 {
 
 		// /////////////
 
-		shell = new Shell(display);
-		// Sets the layout for the shell
-		shell.setLayout(new GridLayout());
+        final int SHELL_TRIM = SWT.TITLE | SWT.MIN; // SWT.CLOSE | SWT.MAX;  | SWT.RESIZE;
+		shell = new Shell(display, SHELL_TRIM);
+		AquatorPlanetHelper.initColors(shell);
 		shell.setText("Life..");
 
         shell.addDisposeListener(new DisposeListener() {
-            public void widgetDisposed(DisposeEvent disposeEvent) {
-                System.exit(0);
-            }
-        });
+			public void widgetDisposed(DisposeEvent disposeEvent) {
+				System.exit(0);
+			}
+		});
 
 		AquatorLife aquaLife = new AquatorLife(planetInitialConfigurationWindow);
 		aquaLife.aquatorLifeDraw(shell);
@@ -72,7 +73,7 @@ public class Aquator2070 {
 		rtds.setDaemon(true);
 		rtds.start();
 		
-		AquatorPlanetHelper.initColors(shell);
+
 
 		while (!shell.isDisposed()) {
 			if (display.readAndDispatch() == false) {

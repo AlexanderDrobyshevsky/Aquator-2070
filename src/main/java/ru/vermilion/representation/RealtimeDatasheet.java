@@ -1,5 +1,7 @@
 package ru.vermilion.representation;
 
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import ru.vermilion.PlanetInitialConfigurationWindow;
 import ru.vermilion.basic.CommonHelper;
 import ru.vermilion.model.EmpiricGraphicData;
@@ -118,6 +120,22 @@ public class RealtimeDatasheet extends Thread {
 		newLine();
 		minimumSharksButton = createButtonedLabel(datasheetComposite12, "Min sharks:", "0", 75, 30);
 		maximumSharksButton = createButtonedLabel(datasheetComposite12, "Max sharks:", "0", 75, 60);
+
+		newSheet();
+		createButton(datasheetComposite12, "Pause..", 105);
+		createButton(datasheetComposite12, "Next Step..", 135, false);
+		newLine();
+		createButton(datasheetComposite12, "New Simulation..", 105);
+		Button exitButton = createButton(datasheetComposite12, "Exit", 135);
+
+		exitButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent selectionEvent) {
+				// todo
+				System.exit(0);
+			}
+		});
+
 
 		Composite datasheetComposite21 = new Composite(composite, SWT.NONE);
 		
@@ -290,6 +308,28 @@ public class RealtimeDatasheet extends Thread {
 		buttonValue.setEnabled(false);
 		
 		return buttonValue;
+	}
+
+	private Button createButton(Composite composite, String name, int width) {
+		return createButton(composite, name, width, true);
+	}
+
+	private Button createButton(Composite composite, String name, int width, boolean isEnabled) {
+		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
+		gd.horizontalIndent = 0;
+		gd.verticalIndent = 5;
+		gd.heightHint = 25;
+		gd.minimumWidth = width;
+		gd.horizontalSpan = 2;
+
+		Button button = new Button(composite, SWT.PUSH);
+		button.setEnabled(isEnabled);
+		button.getBorderWidth();
+
+		button.setLayoutData(gd);
+		button.setText(name);
+
+		return button;
 	}
 	
 
