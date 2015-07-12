@@ -1,6 +1,5 @@
 package ru.vermilion.inhabitants;
 
-import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.eclipse.swt.graphics.GC;
@@ -66,7 +65,7 @@ public class Fish extends AbstractInhabitant  {
 			}
 		}
 		
-		AquatorPlanetHelper.drawWorldPosition(gc, shell, currentLand, aquator, position);
+		AquatorPlanetHelper.drawWorldPosition(gc, currentLand, aquator, position);
 	}
 	
 	public void doReproduction() {

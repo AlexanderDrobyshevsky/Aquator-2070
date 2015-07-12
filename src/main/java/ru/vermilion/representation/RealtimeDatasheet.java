@@ -2,6 +2,7 @@ package ru.vermilion.representation;
 
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import ru.vermilion.AquatorLife;
 import ru.vermilion.PlanetInitialConfigurationWindow;
 import ru.vermilion.basic.CommonHelper;
 import ru.vermilion.model.EmpiricGraphicData;
@@ -26,13 +27,16 @@ public class RealtimeDatasheet extends Thread {
 	protected EmpiricGraphicData egd = EmpiricGraphicData.getInstance();
 
 	private PlanetInitialConfigurationWindow planetInitialConfiguration;
+
+	private AquatorLife aquaLife;
 	
 	private static final int SHELL_TRIM = SWT.TITLE | SWT.MIN; // SWT.CLOSE | SWT.MAX;  | SWT.RESIZE;
 
 	private long startTime;
 
-	public RealtimeDatasheet(PlanetInitialConfigurationWindow planetInitialConfiguration) {
+	public RealtimeDatasheet(PlanetInitialConfigurationWindow planetInitialConfiguration, AquatorLife aquaLife) {
 		this.planetInitialConfiguration = planetInitialConfiguration;
+		this.aquaLife = aquaLife;
 	}
 
 	public void run() {
@@ -122,8 +126,8 @@ public class RealtimeDatasheet extends Thread {
 		maximumSharksButton = createButtonedLabel(datasheetComposite12, "Max sharks:", "0", 75, 60);
 
 		newSheet();
-		createButton(datasheetComposite12, "Pause..", 105);
-		createButton(datasheetComposite12, "Next Step..", 135, false);
+		final Button pauseButton = createButton(datasheetComposite12, "Pause..", 105);
+		final Button nextStepButton = createButton(datasheetComposite12, "Next Step..", 135, false);
 		newLine();
 		createButton(datasheetComposite12, "New Simulation..", 105);
 		Button exitButton = createButton(datasheetComposite12, "Exit", 135);
@@ -133,6 +137,21 @@ public class RealtimeDatasheet extends Thread {
 			public void widgetSelected(SelectionEvent selectionEvent) {
 				// todo
 				System.exit(0);
+			}
+		});
+
+		pauseButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent selectionEvent) {
+				if (pauseButton.getText().equals("Pause..")) {
+					aquaLife.setIsPaused(true);
+					pauseButton.setText("Proceed..");
+					nextStepButton.setEnabled(true);
+				} else {
+					aquaLife.setIsPaused(false);
+					pauseButton.setText("Pause..");
+					nextStepButton.setEnabled(false);
+				}
 			}
 		});
 

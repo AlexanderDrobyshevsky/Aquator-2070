@@ -10,6 +10,7 @@ import ru.vermilion.basic.PlanetException;
 import ru.vermilion.basic.PlanetPosition;
 
 public class AquatorSurface {
+	// y, x
 	private ConcurrentHashMap<Long, IInhabitant>[][] aquator;
 	
 	private int width;

@@ -1,26 +1,21 @@
 package ru.vermilion;
 
-import java.util.Arrays;
-
-import ru.vermilion.model.EmpiricGraphicData;
-import ru.vermilion.model.PlanetModelController;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
-
 import ru.vermilion.basic.AquatorPlanetConfiguration;
+import ru.vermilion.basic.AquatorPlanetHelper;
 import ru.vermilion.behavior.AquatorExecutive;
+import ru.vermilion.model.EmpiricGraphicData;
+import ru.vermilion.model.PlanetModelController;
+
+import java.util.Arrays;
 
 public class AquatorLife {
 
@@ -28,15 +23,10 @@ public class AquatorLife {
 
 	private boolean isCancel;
 
+	private boolean isPaused;
+
 	private Composite surface;
 
-//	private Composite dr;
-//
-//	private Label fishLabel;
-//
-//	private Label sharkLabel;
-//
-//	private Label cntLabel;
 
 	private boolean isHandling = false;
 
@@ -91,9 +81,20 @@ public class AquatorLife {
 	}
 
 	boolean theEnd = false;
-	
+
+
+	private void idleRepaint(GC gc, Shell shell) {
+		AquatorPlanetHelper.drawLand(gc, currentLand);
+	}
+
 	private void paintPlanet(GC gc, Shell shell) {
 		if (isHandling == true || theEnd) {
+			return;
+		}
+
+		if (isPaused) {
+			idleRepaint(gc, shell);
+
 			return;
 		}
 
@@ -126,7 +127,12 @@ public class AquatorLife {
 			if (shell.getDisplay().readAndDispatch()
 					& shell.getDisplay().readAndDispatch()
 					& shell.getDisplay().readAndDispatch()
-					& shell.getDisplay().readAndDispatch() == true) {
+					& shell.getDisplay().readAndDispatch() == true || isPaused) { // || isPaused
+
+				if (isPaused) {
+					//idleRepaint(gc, shell);
+				}
+
 				isHandling = false;
 				return;
 			}
@@ -147,16 +153,32 @@ public class AquatorLife {
 	}
 
 	public void nextIteration() {
+		if (isPaused) return;
+
 		long currItr = aquatorExecutive.getCurrentIteration();
 		
 		surface.redraw();
 		
 		// Application dropped in tray
 		if (currItr == aquatorExecutive.getCurrentIteration()) {
+            if (isPaused) return;
+
 			paintPlanet(null, null);
 		}
 
 		System.out.println("--REDRAW");
+	}
+
+	public boolean isPaused() {
+		return isPaused;
+	}
+
+	public void setIsPaused(boolean isPaused) {
+		this.isPaused = isPaused;
+	}
+
+	public void nextStep() {
+		nextIteration();
 	}
 
 	public boolean isCancel() {

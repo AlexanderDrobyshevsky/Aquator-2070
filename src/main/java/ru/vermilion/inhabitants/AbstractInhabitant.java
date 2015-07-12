@@ -20,7 +20,7 @@ public abstract class AbstractInhabitant implements IInhabitant {
 	
 	// starts from 0; iterations of life.
 	private int age;
-	
+
 	// how many iterations fish lives
 	private int lifeTime;
 	
@@ -73,8 +73,8 @@ public abstract class AbstractInhabitant implements IInhabitant {
 
 			this.position = newPosition;
 			
-			AquatorPlanetHelper.drawWorldPosition(gc, shell, currentLand, aquator, oldPosition);
-			AquatorPlanetHelper.drawWorldPosition(gc, shell, currentLand, aquator, newPosition);
+			AquatorPlanetHelper.drawWorldPosition(gc, currentLand, aquator, oldPosition);
+			AquatorPlanetHelper.drawWorldPosition(gc, currentLand, aquator, newPosition);
 		}
 	}
 	

@@ -14,13 +14,18 @@ public class AquatorPlanetHelper {
 	private static Color colorBlue;
 	private static Color colorBlack;
 	private static Color colorGreen;
-	
+
+	private static Color[] colorMapping;
+
+
 	public static void initColors(Shell shell) {
 		colorRed = shell.getDisplay().getSystemColor(SWT.COLOR_RED);
 		colorYellow = shell.getDisplay().getSystemColor(SWT.COLOR_YELLOW);
 		colorBlue = shell.getDisplay().getSystemColor(SWT.COLOR_BLUE);
 		colorBlack = shell.getDisplay().getSystemColor(SWT.COLOR_BLACK);
 		colorGreen = shell.getDisplay().getSystemColor(SWT.COLOR_GREEN);
+
+		colorMapping = new Color[]{colorBlack, colorRed, colorYellow, colorBlue};
 	}
 	
 	public static final PlanetPosition adjustPlanetPosition(PlanetPosition dirtyPosition) {
@@ -50,7 +55,16 @@ public class AquatorPlanetHelper {
 		return newPosition;
 	}
 
-	public static void drawWorldPosition(GC gc, Shell shell, int[][] currentLand, AquatorSurface planet, PlanetPosition position) {
+	public static void drawLand(GC gc, int[][] currentLand) {
+		for (int i = 0; i < currentLand.length; i++) {
+			for (int j = 0; j < currentLand[i].length; j++) {
+				gc.setForeground(colorMapping[currentLand[i][j]]);
+				gc.drawPoint(j, i);
+			}
+		}
+	}
+
+	public static void drawWorldPosition(GC gc, int[][] currentLand, AquatorSurface planet, PlanetPosition position) {
 		if (gc == null) {
 			return;
 		}

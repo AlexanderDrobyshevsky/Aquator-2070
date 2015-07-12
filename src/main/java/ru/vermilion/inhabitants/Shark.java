@@ -136,7 +136,7 @@ public class Shark extends AbstractInhabitant {
 			doRemove();
 		}
 		
-		AquatorPlanetHelper.drawWorldPosition(gc, shell, currentLand, aquator, position);
+		AquatorPlanetHelper.drawWorldPosition(gc, currentLand, aquator, position);
 	}
 
 	public void doReproduction() {

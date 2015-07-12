@@ -69,7 +69,7 @@ public class Aquator2070 {
 		ellipsegtw.setDaemon(true);
 		ellipsegtw.start();
 		
-		RealtimeDatasheet rtds = new RealtimeDatasheet(planetInitialConfigurationWindow);
+		RealtimeDatasheet rtds = new RealtimeDatasheet(planetInitialConfigurationWindow, aquaLife);
 		rtds.setDaemon(true);
 		rtds.start();
 		
