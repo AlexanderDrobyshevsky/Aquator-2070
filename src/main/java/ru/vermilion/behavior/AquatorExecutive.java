@@ -63,34 +63,28 @@ public class AquatorExecutive {
 		}
 		
 		int fishCount = 0, sharkCount = 0;
-		//try {
-			ConcurrentHashMap<Long, IInhabitant> allInhabitants = aquatorSurface.getAllInhabitants();
-			for (Long id : allInhabitants.keySet()) {
-				IInhabitant entity = allInhabitants.get(id);
 
-				if (entity instanceof Fish) {
-					fishCount++;
-				}
-				
-				if (entity instanceof Shark) {
-					sharkCount++;
-				}
-				
-				if (aquatorSurface.getInhabitants(entity.getPosition()).containsKey(id)) {
-					entity.doIterationBehavior(gc, shell, currentLand);
-					entity.nextIteration(gc, shell, currentLand);
-				} else {
-					allInhabitants.remove(id);
-				}
+		ConcurrentHashMap<Long, IInhabitant> allInhabitants = aquatorSurface.getAllInhabitants();
+		for (Long id : allInhabitants.keySet()) {
+			IInhabitant entity = allInhabitants.get(id);
+
+			if (entity instanceof Fish) {
+				fishCount++;
 			}
-		//} catch (Exception ex) {
-		//	ex.printStackTrace();
-		//}
-		
-		
-		long cnt = aquatorSurface.incIter();
-		
-		return new IterationLateData(cnt, fishCount, sharkCount);
+
+			if (entity instanceof Shark) {
+				sharkCount++;
+			}
+
+			if (aquatorSurface.getInhabitants(entity.getPosition()).containsKey(id)) {
+				entity.doIterationBehavior(gc, shell, currentLand);
+				entity.nextIteration(gc, shell, currentLand);
+			} else {
+				allInhabitants.remove(id);
+			}
+		}
+
+		return new IterationLateData(aquatorSurface.incIter(), fishCount, sharkCount);
 	}
 	
 	// TODO

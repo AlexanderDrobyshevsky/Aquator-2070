@@ -65,10 +65,6 @@ public class AquatorPlanetHelper {
 	}
 
 	public static void drawWorldPosition(GC gc, int[][] currentLand, AquatorSurface planet, PlanetPosition position) {
-		if (gc == null) {
-			return;
-		}
-
 		int y = position.getY();
 		int x = position.getX();
 
@@ -78,32 +74,40 @@ public class AquatorPlanetHelper {
 					&& planet.getSharkCount(new PlanetPosition(y, x)) > 0) {
 
 				if (currentLand[y][x] != 1) {
-					gc.setForeground(colorRed);
-					gc.drawPoint(x, y);
+                    if (gc != null) {
+                        gc.setForeground(colorRed);
+                        gc.drawPoint(x, y);
+                    }
 					currentLand[y][x] = 1;
 				}
 			} else if (planet.getFishCount(new PlanetPosition(y, x)) > 0
 					&& planet.getSharkCount(new PlanetPosition(y, x)) == 0) {
 
 				if (currentLand[y][x] != 2) {
-					gc.setForeground(colorYellow);
-					gc.drawPoint(x, y);
+                    if (gc != null) {
+                        gc.setForeground(colorYellow);
+                        gc.drawPoint(x, y);
+                    }
 					currentLand[y][x] = 2;
 				}
 
 			} else if (planet.getSharkCount(new PlanetPosition(y, x)) > 0) {
 
 				if (currentLand[y][x] != 3) {
-					gc.setForeground(colorBlue);
-					gc.drawPoint(x, y);
+                    if (gc != null) {
+                        gc.setForeground(colorBlue);
+                        gc.drawPoint(x, y);
+                    }
 					currentLand[y][x] = 3;
 				}
 			}
 
 		} else {
 			if (currentLand[y][x] != 0) {
-				gc.setForeground(colorBlack);
-				gc.drawPoint(x, y);
+                if (gc != null) {
+                    gc.setForeground(colorBlack);
+                    gc.drawPoint(x, y);
+                }
 				currentLand[y][x] = 0;
 			}
 		}

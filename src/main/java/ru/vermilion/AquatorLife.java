@@ -83,8 +83,8 @@ public class AquatorLife {
 	boolean theEnd = false;
 
 
-	private void idleRepaint(GC gc, Shell shell) {
-		AquatorPlanetHelper.drawLand(gc, currentLand);
+	private void idleRepaint(GC gc) {
+        AquatorPlanetHelper.drawLand(gc, currentLand);
 	}
 
 	private void paintPlanet(GC gc, Shell shell) {
@@ -93,26 +93,15 @@ public class AquatorLife {
 		}
 
 		if (isPaused) {
-			idleRepaint(gc, shell);
+			idleRepaint(gc);
 
 			return;
 		}
 
 		isHandling = true;
+
 		if (shell == null) {
-			AquatorExecutive.IterationLateData iterationData = aquatorExecutive.nextIteration(gc, shell, currentLand);
-			aquatorExecutive.setLastRedrewIteration(aquatorExecutive.getCurrentIteration());
-
-			EmpiricGraphicData.getInstance().add(iterationData.getFishesCount(), iterationData.getSharksCount());
-			PlanetModelController.getInstance().update();
-
-			if (iterationData.getFishesCount() + iterationData.getSharksCount() == 0) {
-				theEnd = true;
-				System.out.println("The End!");
-			}
-			
-			System.out.println("ITER:--" + aquatorExecutive.getCurrentIteration() + "--; Fishes:Sharks = " + 
-					iterationData.getFishesCount() + ":" + iterationData.getSharksCount() + "--");
+            step(gc, shell);
 
 			isHandling = false;
 			
@@ -127,30 +116,30 @@ public class AquatorLife {
 			if (shell.getDisplay().readAndDispatch()
 					& shell.getDisplay().readAndDispatch()
 					& shell.getDisplay().readAndDispatch()
-					& shell.getDisplay().readAndDispatch() == true || isPaused) { // || isPaused
-
-				if (isPaused) {
-					//idleRepaint(gc, shell);
-				}
+					& shell.getDisplay().readAndDispatch() || isPaused) {
 
 				isHandling = false;
 				return;
 			}
 			
-			AquatorExecutive.IterationLateData iterationData = aquatorExecutive.nextIteration(gc, shell, currentLand);
-			EmpiricGraphicData.getInstance().add(iterationData.getFishesCount(), iterationData.getSharksCount());
-			PlanetModelController.getInstance().update();
-			
-			aquatorExecutive.setLastRedrewIteration(aquatorExecutive.getCurrentIteration());
-			
-			if (iterationData.getFishesCount() + iterationData.getSharksCount() == 0) {
-				theEnd = true;
-				System.out.println("The End!");
-			}
-
-			System.out.println("ITER:--" + aquatorExecutive.getCurrentIteration() + "--;");
+            step(gc, shell);
 		}
 	}
+
+    private void step(GC gc, Shell shell) {
+        AquatorExecutive.IterationLateData iterationData = aquatorExecutive.nextIteration(gc, shell, currentLand);
+        aquatorExecutive.setLastRedrewIteration(aquatorExecutive.getCurrentIteration());
+        EmpiricGraphicData.getInstance().add(iterationData.getFishesCount(), iterationData.getSharksCount());
+        PlanetModelController.getInstance().update();
+
+        if (iterationData.getFishesCount() + iterationData.getSharksCount() == 0) {
+            theEnd = true;
+            System.out.println("The End!");
+        }
+
+        System.out.println("ITER:--" + aquatorExecutive.getCurrentIteration() + "--; Fishes:Sharks = " +
+                iterationData.getFishesCount() + ":" + iterationData.getSharksCount() + "--");
+    }
 
 	public void nextIteration() {
 		if (isPaused) return;
