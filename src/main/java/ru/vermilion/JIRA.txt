@@ -14,6 +14,6 @@ x [12]-TASK: Add iter/sec in Realtime Datasheet
 + [14] TASK: Move buttons from main window to Realtime Datasheet window
 + [15] TASK: Pause/Resume implementation
 - [16] TASK: New simulation button implementation
-- [17] TASK: Realtime Datasheet: Next Step implementation
-
++ [17] TASK: Realtime Datasheet: Next Step implementation
+- [18] TASK: Add Run Summary after Simulation is finished
 

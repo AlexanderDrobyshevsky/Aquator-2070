@@ -126,7 +126,7 @@ public class AquatorLife {
 		}
 	}
 
-    private void step(GC gc, Shell shell) {
+    public void step(GC gc, Shell shell) {
         AquatorExecutive.IterationLateData iterationData = aquatorExecutive.nextIteration(gc, shell, currentLand);
         aquatorExecutive.setLastRedrewIteration(aquatorExecutive.getCurrentIteration());
         EmpiricGraphicData.getInstance().add(iterationData.getFishesCount(), iterationData.getSharksCount());
@@ -174,4 +174,7 @@ public class AquatorLife {
 		return isCancel;
 	}
 
+    public Composite getSurface() {
+        return surface;
+    }
 }

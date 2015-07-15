@@ -155,6 +155,19 @@ public class RealtimeDatasheet extends Thread {
 			}
 		});
 
+		nextStepButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent selectionEvent) {
+				aquaLife.step(null, null);
+				aquaLife.getSurface().getDisplay().asyncExec(new Runnable() {
+					@Override
+					public void run() {
+						aquaLife.getSurface().redraw();
+					}
+				});
+			}
+		});
+
 
 		Composite datasheetComposite21 = new Composite(composite, SWT.NONE);
 		
