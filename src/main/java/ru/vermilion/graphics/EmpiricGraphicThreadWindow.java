@@ -34,11 +34,11 @@ public class EmpiricGraphicThreadWindow extends GraphicThreadWindow {
 	private Slider screenSlider;
 	
 	private double divisor;
-	
+
 	protected void configureWindow() {
 		windowShell.setText("Empiric Data Graphic");
 		windowShell.setBounds(500, 40, width, height);
-		windowShell.setMinimumSize(new Point(250, 180));
+		windowShell.setMinimumSize(WINDOW_SIZE);
 	}
 
 	protected void createContent(Composite composite) {

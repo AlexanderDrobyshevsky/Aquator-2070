@@ -2,6 +2,7 @@ package ru.vermilion.representation;
 
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Point;
 import ru.vermilion.AquatorLife;
 import ru.vermilion.PlanetInitialConfigurationWindow;
 import ru.vermilion.basic.CommonHelper;
@@ -34,34 +35,49 @@ public class RealtimeDatasheet extends Thread {
 
 	private long startTime;
 
+	private final Object synchronizer = new Object();
+
+    private Point windowSize;
+
 	public RealtimeDatasheet(PlanetInitialConfigurationWindow planetInitialConfiguration, AquatorLife aquaLife) {
 		this.planetInitialConfiguration = planetInitialConfiguration;
 		this.aquaLife = aquaLife;
 	}
 
 	public void run() {
-		Display display = new Display();
-		windowShell = new Shell(display, SHELL_TRIM);
-		GridLayout gl = new GridLayout(2, false);
-		gl.marginHeight = 0;
-		gl.marginWidth = 0;
-		windowShell.setLayout(gl);
-		newSheet();
-		
-		configureWindow();
+		Display display;
+		synchronized (synchronizer) {
+			display = new Display();
+			windowShell = new Shell(display, SHELL_TRIM);
+			GridLayout gl = new GridLayout(2, false);
+			gl.marginHeight = 0;
+			gl.marginWidth = 0;
+			windowShell.setLayout(gl);
+			newSheet();
 
-		startTime = System.currentTimeMillis();
-		
-		createContent(windowShell);
-		
-		windowShell.pack();
+			configureWindow();
 
-		windowShell.open();
+			startTime = System.currentTimeMillis();
+
+			createContent(windowShell);
+
+			windowShell.pack();
+
+			windowShell.open();
+
+            windowSize = windowShell.getSize();
+		}
 
 		while (!windowShell.isDisposed()) {
 			if (!display.readAndDispatch()) {
 				display.sleep();
 			}
+		}
+	}
+
+	public Point getWindowSize() {
+		synchronized (synchronizer) {
+			return windowSize;
 		}
 	}
 	

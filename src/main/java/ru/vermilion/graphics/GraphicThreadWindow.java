@@ -1,5 +1,6 @@
 package ru.vermilion.graphics;
 
+import org.eclipse.swt.graphics.Point;
 import ru.vermilion.model.EmpiricGraphicData;
 
 import org.eclipse.swt.SWT;
@@ -36,6 +37,8 @@ public abstract class GraphicThreadWindow extends Thread {
 	protected Canvas graphicComposite;
 	
 	protected EmpiricGraphicData egd = EmpiricGraphicData.getInstance();
+
+	protected final Point WINDOW_SIZE = new Point(250, 180);
 	
 	// if repainting is more than REFRESH_INTERVAL what will happens : Either the method runs again or only after previous one is finished ?
 	public void run() {
@@ -47,9 +50,6 @@ public abstract class GraphicThreadWindow extends Thread {
 		windowShell.setLayout(gl);
 		
 		configureWindow();
-		
-		// TODO
-		//windowShell.setMinimumSize(new Point(250, 180));
 		
 		colorDarkGreen = display.getSystemColor(SWT.COLOR_DARK_GREEN);
 		colorShark = display.getSystemColor(SWT.COLOR_BLUE);
@@ -158,5 +158,7 @@ public abstract class GraphicThreadWindow extends Thread {
 		gc.drawLine(x1 + b, realHeight + a - y1, x2 + b, realHeight + a - y2);
 	}
 
-
+	public Point getWindowSize() {
+		return WINDOW_SIZE;
+	}
 }
