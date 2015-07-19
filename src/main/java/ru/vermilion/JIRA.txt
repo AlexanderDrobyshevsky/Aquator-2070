@@ -4,7 +4,7 @@
 + [4]  TASK: Add min/max calculations on realtime datasheet
 + [5]  TASK: Add cycle calculation on realtime datasheet
 + [6]  TASK: Main Window - remove obsolete buttons (amend [11] at first)
-- [7]  TASK: On Run - Place all windows beautifully
++ [7]  TASK: On Run - Locate all windows beautifully
 - [8]  TASK: Add validators on configuration window
 x [9]- TASK(Tech): Refactor Initial Configuration class
 - [10] TASK: Make up how to proceed with current world after program termination
@@ -16,4 +16,4 @@ x [12]-TASK: Add iter/sec in Realtime Datasheet
 - [16] TASK: New simulation button implementation
 + [17] TASK: Realtime Datasheet: Next Step implementation
 - [18] TASK: Add Run Summary after Simulation is finished
-
+- [19] TASK: Open main window or dashboard => open all windows

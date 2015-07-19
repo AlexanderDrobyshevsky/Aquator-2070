@@ -39,26 +39,34 @@ public abstract class GraphicThreadWindow extends Thread {
 	protected EmpiricGraphicData egd = EmpiricGraphicData.getInstance();
 
 	protected final Point WINDOW_SIZE = new Point(250, 180);
+
+	private Point windowSize;
+
+	private final Object synchronizer = new Object();
 	
 	// if repainting is more than REFRESH_INTERVAL what will happens : Either the method runs again or only after previous one is finished ?
 	public void run() {
-		Display display = new Display();
-		windowShell = new Shell(display);
-		GridLayout gl = new GridLayout(1, false);
-		gl.marginHeight = 0;
-		gl.marginWidth = 0;
-		windowShell.setLayout(gl);
-		
-		configureWindow();
-		
-		colorDarkGreen = display.getSystemColor(SWT.COLOR_DARK_GREEN);
-		colorShark = display.getSystemColor(SWT.COLOR_BLUE);
-		colorFish = display.getSystemColor(SWT.COLOR_YELLOW);
-		colorDigits = display.getSystemColor(SWT.COLOR_WHITE);
+		Display display;
+		synchronized (synchronizer) {
+			display = new Display();
+			windowShell = new Shell(display);
+			GridLayout gl = new GridLayout(1, false);
+			gl.marginHeight = 0;
+			gl.marginWidth = 0;
+			windowShell.setLayout(gl);
 
-		createContent(windowShell);
+			configureWindow();
 
-		windowShell.open();
+			colorDarkGreen = display.getSystemColor(SWT.COLOR_DARK_GREEN);
+			colorShark = display.getSystemColor(SWT.COLOR_BLUE);
+			colorFish = display.getSystemColor(SWT.COLOR_YELLOW);
+			colorDigits = display.getSystemColor(SWT.COLOR_WHITE);
+
+			createContent(windowShell);
+
+			windowShell.open();
+			windowSize = windowShell.getSize();
+		}
 
 		while (!windowShell.isDisposed()) {
 			if (!display.readAndDispatch()) {
@@ -159,6 +167,16 @@ public abstract class GraphicThreadWindow extends Thread {
 	}
 
 	public Point getWindowSize() {
-		return WINDOW_SIZE;
+        synchronized (synchronizer) {
+            return windowSize;
+        }
 	}
+
+    public void setWindowLocation(Point newLocation) {
+        windowShell.setLocation(newLocation);
+    }
+
+    public Shell getWindowShell() {
+        return windowShell;
+    }
 }

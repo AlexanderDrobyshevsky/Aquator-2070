@@ -75,12 +75,6 @@ public class RealtimeDatasheet extends Thread {
 		}
 	}
 
-	public Point getWindowSize() {
-		synchronized (synchronizer) {
-			return windowSize;
-		}
-	}
-	
 	protected void configureWindow() {
 		windowShell.setText("Realtime Datasheet");
 		//windowShell.setBounds(500, 360, width, height);
@@ -379,6 +373,19 @@ public class RealtimeDatasheet extends Thread {
 
 		return button;
 	}
-	
 
+
+	public Point getWindowSize() {
+		synchronized (synchronizer) {
+			return windowSize;
+		}
+	}
+
+	public void setWindowLocation(Point newLocation) {
+		windowShell.setLocation(newLocation);
+	}
+
+	public Shell getWindowShell() {
+		return windowShell;
+	}
 }
