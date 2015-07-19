@@ -38,7 +38,7 @@ public abstract class GraphicThreadWindow extends Thread {
 	
 	protected EmpiricGraphicData egd = EmpiricGraphicData.getInstance();
 
-	protected final Point WINDOW_SIZE = new Point(250, 180);
+	protected final Point WINDOW_MIN_SIZE = new Point(250, 180);
 
 	private Point windowSize;
 

@@ -38,7 +38,7 @@ public class EmpiricGraphicThreadWindow extends GraphicThreadWindow {
 	protected void configureWindow() {
 		windowShell.setText("Empiric Data Graphic");
 		windowShell.setBounds(500, 40, width, height);
-		windowShell.setMinimumSize(WINDOW_SIZE);
+		windowShell.setMinimumSize(WINDOW_MIN_SIZE);
 	}
 
 	protected void createContent(Composite composite) {

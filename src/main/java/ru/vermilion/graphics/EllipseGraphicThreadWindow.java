@@ -40,7 +40,7 @@ public class EllipseGraphicThreadWindow extends GraphicThreadWindow {
 	protected void configureWindow() {
 		windowShell.setText("Ellipse Data Graphic");
 		windowShell.setBounds(500, 360, width, height);
-		windowShell.setMinimumSize(WINDOW_SIZE);
+		windowShell.setMinimumSize(WINDOW_MIN_SIZE);
 	}
 	
 	protected void createContent(Composite composite) {
