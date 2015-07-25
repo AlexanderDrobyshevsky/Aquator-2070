@@ -1,4 +1,4 @@
-- [1]  BUG: sometime some Windows terminates because of undetected reason.
+- [1]  BUG: sometime some Windows are terminated because of undetected reason
 - [2]  BUG: Window can be closed, but can not be revived
 + [3]  TASK: Add Running time
 + [4]  TASK: Add min/max calculations on realtime datasheet
@@ -19,4 +19,8 @@ x [12]-TASK: Add iter/sec in Realtime Datasheet
 - [19] TASK: Open main window or dashboard => open all windows
 - [20] TASK: Dist: Separate versions for: win32, win64, linux, mac
 - [21] TASK: Maven creates distributives automatically
-- [22] TASK: Add menu in configuration window
++ [22] TASK: Add menu in configuration window
+- [23] TASK: Implement reset to default menu item
+- [24] TASK: Implement about menu item
+- [25] TASK: Sort out Configuration Window
+

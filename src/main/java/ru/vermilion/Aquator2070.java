@@ -3,15 +3,15 @@ package ru.vermilion;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.widgets.Monitor;
+import org.eclipse.swt.widgets.*;
 import ru.vermilion.graphics.EllipseGraphicThreadWindow;
 import ru.vermilion.graphics.EmpiricGraphicThreadWindow;
 
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
 
 import ru.vermilion.representation.RealtimeDatasheet;
 
@@ -19,13 +19,62 @@ import ru.vermilion.basic.AquatorPlanetHelper;
 
 public class Aquator2070 {
 
+    private Menu menuBar,  systemMenu, helpMenu;
+
+    private MenuItem systemMenuHeader, helpMenuHeader;
+
+    // System Items
+    private MenuItem setDefaultsItem, exitItem;
+
+    // Help Items
+    private MenuItem aboutItem;
+
+
+    private void createMenu(Shell shell) {
+        menuBar = new Menu(shell, SWT.BAR);
+
+        // System
+        systemMenuHeader = new MenuItem(menuBar, SWT.CASCADE);
+        systemMenuHeader.setText("&System");
+
+        systemMenu = new Menu(shell, SWT.DROP_DOWN);
+        systemMenuHeader.setMenu(systemMenu);
+
+        setDefaultsItem = new MenuItem(systemMenu, SWT.PUSH);
+        setDefaultsItem.setText("&Reset parameters to defaults");
+
+        exitItem = new MenuItem(systemMenu, SWT.PUSH);
+        exitItem.setText("&Exit");
+
+        exitItem.addSelectionListener(new SelectionAdapter() {
+            public void widgetSelected(SelectionEvent e) {
+                System.exit(0);
+            }
+        });
+
+
+        // Help
+        helpMenuHeader = new MenuItem(menuBar, SWT.CASCADE);
+        helpMenuHeader.setText("&Help");
+
+        helpMenu = new Menu(shell, SWT.DROP_DOWN);
+        helpMenuHeader.setMenu(helpMenu);
+
+        aboutItem = new MenuItem(helpMenu, SWT.PUSH);
+        aboutItem.setText("&About Program");
+
+        shell.setMenuBar(menuBar);
+    }
+
     // refactor
 	private void start() {
 		Display display = new Display();
 		Shell worldShell = new Shell(display);
 		worldShell.setLayout(new GridLayout());
 		worldShell.setText("World Configuration");
+        createMenu(worldShell);
 		PlanetInitialConfigurationWindow planetInitialConfigurationWindow = new PlanetInitialConfigurationWindow(worldShell);
+
 		worldShell.open();
 
 		while (!worldShell.isDisposed()) {
