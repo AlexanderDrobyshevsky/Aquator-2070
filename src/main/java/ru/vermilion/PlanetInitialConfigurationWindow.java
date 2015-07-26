@@ -5,16 +5,20 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.regex.Pattern;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.VerifyEvent;
+import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import ru.vermilion.basic.CommonHelper;
 
 
 public class PlanetInitialConfigurationWindow {
@@ -64,202 +68,153 @@ public class PlanetInitialConfigurationWindow {
 	public PlanetInitialConfigurationWindow(Composite parent) {
 		loadParameters();
 		
-		parent.setSize(350, 650);
-		parent.update();
-		
-		GridLayout parentLayout = new GridLayout();
-		parent.setLayout(parentLayout);
-		parentLayout.numColumns = 2;
-		
-		Label label = new Label(parent, SWT.LEFT);
-		label.setText("");
-		label = new Label(parent, SWT.LEFT);
-		label.setText("Planet Aquator Parameters");
-		
-		label = new Label(parent, SWT.LEFT);
-		label.setText("World Height: ");
+        parent.getShell().setText("New World Configuration");
+        GridLayout parentLayout = new GridLayout();
+        parent.setLayout(parentLayout);
+        parentLayout.numColumns = 2;
 
-		worldHeightText = new Text(parent, SWT.BORDER | SWT.WRAP);
-		worldHeightText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		worldHeightText.setTextLimit(5);
-		worldHeightText.setText(worldHeight + "");
-		
-		label = new Label(parent, SWT.LEFT);
-		label.setText("World Width: ");
-		
-		worldWidthText = new Text(parent, SWT.BORDER | SWT.WRAP);
-		worldWidthText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		worldWidthText.setTextLimit(5);
-		worldWidthText.setText(worldWidth + "");
-		
-		label = new Label(parent, SWT.LEFT);
-		label.setText("World Max Depth: ");
+        createHeader(parent);
 
-		worldMaxDepthText = new Text(parent, SWT.BORDER | SWT.WRAP);
-		worldMaxDepthText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		worldMaxDepthText.setTextLimit(5);
-		worldMaxDepthText.setText(worldMaxDepth + "");
-		
-		new Label(parent, SWT.LEFT);
-		new Label(parent, SWT.LEFT);
-		
-		// Fish
-		label = new Label(parent, SWT.LEFT);
-		label.setText("");
-		label = new Label(parent, SWT.LEFT);
-		label.setText("Fishes Parameters");
-		
-		label = new Label(parent, SWT.LEFT);
-		label.setText("fishLifeTimeText: ");
-		
-		fishLifeTimeText = new Text(parent, SWT.BORDER | SWT.WRAP);
-		fishLifeTimeText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		fishLifeTimeText.setTextLimit(5);
-		fishLifeTimeText.setText(fishLifeTime + "");
-		
-		label = new Label(parent, SWT.LEFT);
-		label.setText("fishMaxReproductivesText: ");
-		
-		fishMaxReproductivesText = new Text(parent, SWT.BORDER | SWT.WRAP);
-		fishMaxReproductivesText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		fishMaxReproductivesText.setTextLimit(5);
-		fishMaxReproductivesText.setText(fishMaxReproductives + "");
-		
-		label = new Label(parent, SWT.LEFT);
-		label.setText("fishPregnantPeriodText: ");
-		
-		fishPregnantPeriodText = new Text(parent, SWT.BORDER | SWT.WRAP);
-		fishPregnantPeriodText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		fishPregnantPeriodText.setTextLimit(5);
-		fishPregnantPeriodText.setText(fishPregnantPeriod + "");
-		
-		label = new Label(parent, SWT.LEFT);
-		label.setText("fishSpeedText: ");
-		
-		fishSpeedText = new Text(parent, SWT.BORDER | SWT.WRAP);
-		fishSpeedText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		fishSpeedText.setTextLimit(5);
-		fishSpeedText.setText(fishSpeed + "");
-		
-		label = new Label(parent, SWT.LEFT);
-		label.setText("fishMaxDepthText: ");
-		
-		fishMaxDepthText = new Text(parent, SWT.BORDER | SWT.WRAP);
-		fishMaxDepthText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		fishMaxDepthText.setTextLimit(5);
-		fishMaxDepthText.setText(fishMaxDepth + "");
-		
+        // World's initial
+        layoutH2Label(parent, "World's Parameters");
+
+		new Label(parent, SWT.LEFT).setText("World Height: ");   worldHeightText = createSingleText(parent, worldHeight);
+		new Label(parent, SWT.LEFT).setText("World Width: ");    worldWidthText = createSingleText(parent, worldWidth);
+		new Label(parent, SWT.LEFT).setText("World Max Depth: "); worldMaxDepthText = createSingleText(parent, worldMaxDepth);
+
+        // Fishes
+        layoutH2Label(parent, "Fishes' Parameters");
+
+		new Label(parent, SWT.LEFT).setText("Fish's Life Time: "); fishLifeTimeText = createSingleText(parent, fishLifeTime);
+		new Label(parent, SWT.LEFT).setText("Fish's Max Reproduction: "); fishMaxReproductivesText = createSingleText(parent, fishMaxReproductives);
+		new Label(parent, SWT.LEFT).setText("Fish's Pregnant Period: "); fishPregnantPeriodText = createSingleText(parent, fishPregnantPeriod);
+		new Label(parent, SWT.LEFT).setText("Fish's Speed: "); fishSpeedText = createSingleText(parent, fishSpeed);
+        new Label(parent, SWT.LEFT).setText("Fish's Max Depth: "); fishMaxDepthText = createSingleText(parent, fishMaxDepth);
+
 		// Shark
-		label = new Label(parent, SWT.LEFT);
-		label.setText("");
-		label = new Label(parent, SWT.LEFT);
-		label.setText("Sharkes Parameters");
+        layoutH2Label(parent, "Sharks' Parameters");
 		
-		label = new Label(parent, SWT.LEFT);
-		label.setText("sharkLifeTimeText: ");
+		new Label(parent, SWT.LEFT).setText("Shark's Life Time: "); sharkLifeTimeText = createSingleText(parent, sharkLifeTime);
+		new Label(parent, SWT.LEFT).setText("Shark's Max reproduction: "); sharkMaxReproductivesText = createSingleText(parent, sharkMaxReproductives);
+		new Label(parent, SWT.LEFT).setText("Shark's Pregnant Period: "); sharkPregnantPeriodText = createSingleText(parent, sharkPregnantPeriod);
+	    new Label(parent, SWT.LEFT).setText("Shark's Max Hunger Time: "); sharkMaxHungerTimeText = createSingleText(parent, sharkMaxHungerTime);
+		new Label(parent, SWT.LEFT).setText("Shark's Speed: "); sharkSpeedText = createSingleText(parent, sharkSpeed);
+        new Label(parent, SWT.LEFT).setText("Shark's Max Depth: "); sharkMaxDepthText = createSingleText(parent, sharkMaxDepth);
+
+		// Initial population
+        layoutH2Label(parent, "Initial Population Parameters");
 		
-		sharkLifeTimeText = new Text(parent, SWT.BORDER | SWT.WRAP);
-		sharkLifeTimeText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		sharkLifeTimeText.setTextLimit(5);
-		sharkLifeTimeText.setText(sharkLifeTime + "");
-		
-		label = new Label(parent, SWT.LEFT);
-		label.setText("sharkMaxReproductivesText: ");
-		
-		sharkMaxReproductivesText = new Text(parent, SWT.BORDER | SWT.WRAP);
-		sharkMaxReproductivesText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		sharkMaxReproductivesText.setTextLimit(5);
-		sharkMaxReproductivesText.setText(sharkMaxReproductives + "");
-		
-		label = new Label(parent, SWT.LEFT);
-		label.setText("sharkPregnantPeriodText: ");
-		
-		sharkPregnantPeriodText = new Text(parent, SWT.BORDER | SWT.WRAP);
-		sharkPregnantPeriodText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		sharkPregnantPeriodText.setTextLimit(5);
-		sharkPregnantPeriodText.setText(sharkPregnantPeriod + "");
-		
-		label = new Label(parent, SWT.LEFT);
-		label.setText("sharkMaxHungerTimeText: ");
-		
-		sharkMaxHungerTimeText = new Text(parent, SWT.BORDER | SWT.WRAP);
-		sharkMaxHungerTimeText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		sharkMaxHungerTimeText.setTextLimit(5);
-		sharkMaxHungerTimeText.setText(sharkMaxHungerTime + "");
-		
-		label = new Label(parent, SWT.LEFT);
-		label.setText("sharkSpeedText: ");
-		
-		sharkSpeedText = new Text(parent, SWT.BORDER | SWT.WRAP);
-		sharkSpeedText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		sharkSpeedText.setTextLimit(5);
-		sharkSpeedText.setText(sharkSpeed + "");
-		
-		label = new Label(parent, SWT.LEFT);
-		label.setText("sharkMaxDepthText: ");
-		
-		sharkMaxDepthText = new Text(parent, SWT.BORDER | SWT.WRAP);
-		sharkMaxDepthText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		sharkMaxDepthText.setTextLimit(5);
-		sharkMaxDepthText.setText(sharkMaxDepth + "");
-		
-		// countes
-		label = new Label(parent, SWT.LEFT);
-		label.setText("");
-		label = new Label(parent, SWT.LEFT);
-		label.setText("Initial Count Parameters");
-		
-		label = new Label(parent, SWT.LEFT);
-		label.setText("initialFishesCountText: ");
-		
-		initialFishesCountText = new Text(parent, SWT.BORDER | SWT.WRAP);
-		initialFishesCountText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		initialFishesCountText.setTextLimit(5);
-		initialFishesCountText.setText(initialFishesCount + "");
-		
-		label = new Label(parent, SWT.LEFT);
-		label.setText("initialSharkesCountText: ");
-		
-		initialSharkesCountText = new Text(parent, SWT.BORDER | SWT.WRAP);
-		initialSharkesCountText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		initialSharkesCountText.setTextLimit(5);
-		initialSharkesCountText.setText(initialSharkesCount + "");
-		
-		///////////////
-		new Label(parent, SWT.LEFT);
-		new Label(parent, SWT.LEFT);
-		
-		
-		Button saveButton = new Button(parent, SWT.PUSH);
-		GridData gd = new GridData(GridData.END);
-		gd.verticalAlignment = 100;
-		gd.minimumHeight = 100;
-		saveButton.setLayoutData(gd);
-		saveButton.setText("Save/OK");
-		saveButton.setEnabled(true);
-		saveButton.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e){
-				isOK = true;
-				saveParameters();
-			}
-		});
-		
-		Button cancelButton = new Button(parent, SWT.PUSH);
-		gd = new GridData(GridData.END);
-		gd.verticalAlignment = 100;
-		gd.minimumHeight = 100;
-		cancelButton.setLayoutData(gd);
-		cancelButton.setText("Cancel");
-		cancelButton.setEnabled(true);
-		cancelButton.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e){
-				System.exit(0);
-				isOK = false;
-			}
-		});
+		new Label(parent, SWT.LEFT).setText("Initial Fishes Count: "); initialFishesCountText = createSingleText(parent, initialFishesCount);
+		new Label(parent, SWT.LEFT).setText("Initial Sharks Count: "); initialSharkesCountText = createSingleText(parent, initialSharkesCount);
+
+        createActionButtons(parent);
 		
 		parent.layout(true);
+		parent.pack();
+
+        CommonHelper.centerShell(parent.getShell());
 	}
+
+    private void createHeader(Composite parent) {
+        Composite headerComposite = new Composite(parent, SWT.FILL);
+
+        GridLayout headerCompositeLayout = new GridLayout(2, false);
+        headerCompositeLayout.marginHeight = 20;
+        headerCompositeLayout.marginWidth = 30;
+        headerCompositeLayout.horizontalSpacing = 35;
+        headerComposite.setLayout(headerCompositeLayout);
+
+        GridData gd = new GridData();
+        gd.horizontalAlignment = SWT.CENTER;
+        gd.horizontalSpan = 2;
+
+        headerComposite.setLayoutData(gd);
+
+        Label label = new Label(headerComposite, SWT.CENTER);
+        label.setText("Planet Aquator's Parameters");
+        CommonHelper.increaseControlFontSize(label, +7);
+    }
+
+    private void createActionButtons(Composite parent) {
+        GridData gd;
+        Composite buttonComposite = new Composite(parent, SWT.FILL);
+
+        GridLayout compositeLayout = new GridLayout(2, false);
+        compositeLayout.marginHeight = 20;
+        compositeLayout.marginWidth = 30;
+        compositeLayout.horizontalSpacing = 35;
+        buttonComposite.setLayout(compositeLayout);
+
+        gd = new GridData();
+        gd.horizontalAlignment = SWT.CENTER;
+        gd.horizontalSpan = 2;
+
+        buttonComposite.setLayoutData(gd);
+
+        Button saveButton = new Button(buttonComposite, SWT.PUSH);
+        gd = new GridData();
+        gd.heightHint = 40;
+        gd.widthHint = 150;
+        saveButton.setLayoutData(gd);
+        saveButton.setText("Start Simulation");
+        saveButton.setEnabled(true);
+        CommonHelper.increaseControlFontSize(saveButton, +3, true);
+        saveButton.addSelectionListener(new SelectionAdapter() {
+            public void widgetSelected(SelectionEvent e) {
+                isOK = true;
+                saveParameters();
+            }
+        });
+
+        Button cancelButton = new Button(buttonComposite, SWT.PUSH);
+        gd = new GridData(GridData.END);
+        gd.minimumWidth = 400;
+        gd.heightHint = 40;
+        gd.widthHint = 130;
+        cancelButton.setLayoutData(gd);
+        cancelButton.setText("Cancel and Exit");
+        cancelButton.setEnabled(true);
+        CommonHelper.increaseControlFontSize(cancelButton, +3);
+        cancelButton.addSelectionListener(new SelectionAdapter() {
+            public void widgetSelected(SelectionEvent e) {
+                System.exit(0);
+                isOK = false;
+            }
+        });
+
+        parent.getShell().setDefaultButton(saveButton);
+    }
+
+    private Text createSingleText(Composite parent, long value) {
+        Text text = new Text(parent, SWT.BORDER | SWT.SINGLE);
+        text.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        text.setTextLimit(5);
+        addVerifier(text);
+        text.setText(value + "");
+
+        return text;
+    }
+
+    private void layoutH2Label(Composite parent, String labelText) {
+        Composite labelComposite = new Composite(parent, SWT.FILL);
+
+        GridLayout labelCompositeLayout = new GridLayout(2, false);
+        labelCompositeLayout.marginHeight = 5;
+        labelCompositeLayout.marginWidth = 30;
+        labelCompositeLayout.horizontalSpacing = 35;
+        labelComposite.setLayout(labelCompositeLayout);
+
+        GridData gd = new GridData();
+        gd.horizontalAlignment = SWT.CENTER;
+        gd.horizontalSpan = 2;
+
+        labelComposite.setLayoutData(gd);
+
+        Label label = new Label(labelComposite, SWT.CENTER);
+        label.setText(labelText);
+
+        CommonHelper.increaseControlFontSize(label, +4);
+    }
 	
 	public Boolean isOK() {
 		return isOK;
@@ -382,6 +337,18 @@ public class PlanetInitialConfigurationWindow {
 			ex.printStackTrace();
 		}
 	}
+
+    private void addVerifier(Text text) {
+        final Pattern patternCompiled = Pattern.compile("^(0|[1-9][0-9]*)$");
+
+        text.addVerifyListener(new VerifyListener() {
+            public void verifyText(VerifyEvent e) {
+                String currentText = ((Text)e.widget).getText();
+                String newValue = currentText.substring(0, e.start) + e.text + currentText.substring(e.end);
+                e.doit = patternCompiled.matcher(newValue).matches();
+            }
+        });
+    }
 
 	public int getWorldHeight() {
 		return worldHeight;

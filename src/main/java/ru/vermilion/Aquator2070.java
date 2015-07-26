@@ -29,6 +29,7 @@ public class Aquator2070 {
     // Help Items
     private MenuItem aboutItem;
 
+    final int SHELL_TRIM = SWT.TITLE | SWT.MIN;
 
     private void createMenu(Shell shell) {
         menuBar = new Menu(shell, SWT.BAR);
@@ -69,9 +70,9 @@ public class Aquator2070 {
     // refactor
 	private void start() {
 		Display display = new Display();
-		Shell worldShell = new Shell(display);
+		Shell worldShell = new Shell(display, SHELL_TRIM);
 		worldShell.setLayout(new GridLayout());
-		worldShell.setText("World Configuration");
+
         createMenu(worldShell);
 		PlanetInitialConfigurationWindow planetInitialConfigurationWindow = new PlanetInitialConfigurationWindow(worldShell);
 
@@ -96,7 +97,6 @@ public class Aquator2070 {
 			worldShell.dispose();
 		}
 
-        final int SHELL_TRIM = SWT.TITLE | SWT.MIN; // SWT.CLOSE | SWT.MAX;  | SWT.RESIZE;
 		worldShell = new Shell(display, SHELL_TRIM);
 		AquatorPlanetHelper.initColors(worldShell);
 		worldShell.setText("Life..");
