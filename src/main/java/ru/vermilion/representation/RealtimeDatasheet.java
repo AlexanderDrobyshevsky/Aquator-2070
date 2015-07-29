@@ -5,6 +5,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
 import ru.vermilion.AquatorLife;
 import ru.vermilion.PlanetInitialConfigurationWindow;
+import ru.vermilion.auxiliary.MessageOKCancelDialog;
 import ru.vermilion.basic.CommonHelper;
 import ru.vermilion.model.EmpiricGraphicData;
 import ru.vermilion.model.IModelListener;
@@ -94,7 +95,7 @@ public class RealtimeDatasheet extends Thread {
 	private Button cycleButton;
 	
 	
-	protected void createContent(Composite composite) {
+	protected void createContent(final Composite composite) {
 		Composite datasheetComposite11 = new Composite(composite, SWT.NONE);
 
 		GridLayout compositeLayout = new GridLayout(2, false);
@@ -139,7 +140,7 @@ public class RealtimeDatasheet extends Thread {
 		final Button pauseButton = createButton(datasheetComposite12, "Pause..", 105);
 		final Button nextStepButton = createButton(datasheetComposite12, "Next Step..", 135, false);
 		newLine();
-		createButton(datasheetComposite12, "New Simulation..", 105);
+		Button newSimulationButton = createButton(datasheetComposite12, "New Simulation..", 105);
 		Button exitButton = createButton(datasheetComposite12, "Exit", 135);
 
 		exitButton.addSelectionListener(new SelectionAdapter() {
@@ -147,6 +148,14 @@ public class RealtimeDatasheet extends Thread {
 			public void widgetSelected(SelectionEvent selectionEvent) {
 				// todo
 				System.exit(0);
+			}
+		});
+
+		newSimulationButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent selectionEvent) {
+				MessageOKCancelDialog okCancelDialog = new MessageOKCancelDialog(composite.getShell(), "Attention", "Do you really want to start new simulation? \r\n This simulation will be canceled!");
+				okCancelDialog.open();
 			}
 		});
 

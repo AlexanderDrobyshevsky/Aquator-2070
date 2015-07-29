@@ -81,4 +81,14 @@ public class CommonHelper {
 		shell.setLocation(x, y);
 	}
 
+	public static void centerShell(Shell parentShell, Shell centerShell) {
+		Rectangle bounds = parentShell.getBounds();
+		Rectangle rect = centerShell.getBounds();
+
+		int x = bounds.x + (bounds.width - rect.width) / 2;
+		int y = bounds.y + (bounds.height - rect.height) / 2;
+
+		centerShell.setLocation(x, y);
+	}
+
 }
