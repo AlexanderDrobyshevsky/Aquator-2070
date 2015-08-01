@@ -14,10 +14,7 @@ import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.*;
 import ru.vermilion.basic.CommonHelper;
 
 
@@ -64,8 +61,24 @@ public class PlanetInitialConfigurationWindow {
 
 	private int initialFishesCount;
 	private int initialSharkesCount;
+
+
+	private Menu menuBar,  systemMenu, helpMenu;
+
+	private MenuItem systemMenuHeader, helpMenuHeader;
+
+	// System Items
+	private MenuItem setDefaultsItem, exitItem;
+
+	// Help Items
+	private MenuItem aboutItem;
+
+
 	
 	public PlanetInitialConfigurationWindow(Composite parent) {
+		parent.getShell().setLayout(new GridLayout());
+		createMenu(parent.getShell());
+
 		loadParameters();
 		
         parent.getShell().setText("New World Configuration");
@@ -113,6 +126,42 @@ public class PlanetInitialConfigurationWindow {
 		parent.pack();
 
         CommonHelper.centerShell(parent.getShell());
+	}
+
+	private void createMenu(Shell shell) {
+		menuBar = new Menu(shell, SWT.BAR);
+
+		// System
+		systemMenuHeader = new MenuItem(menuBar, SWT.CASCADE);
+		systemMenuHeader.setText("&System");
+
+		systemMenu = new Menu(shell, SWT.DROP_DOWN);
+		systemMenuHeader.setMenu(systemMenu);
+
+		setDefaultsItem = new MenuItem(systemMenu, SWT.PUSH);
+		setDefaultsItem.setText("&Reset parameters to defaults");
+
+		exitItem = new MenuItem(systemMenu, SWT.PUSH);
+		exitItem.setText("&Exit");
+
+		exitItem.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				System.exit(0);
+			}
+		});
+
+
+		// Help
+		helpMenuHeader = new MenuItem(menuBar, SWT.CASCADE);
+		helpMenuHeader.setText("&Help");
+
+		helpMenu = new Menu(shell, SWT.DROP_DOWN);
+		helpMenuHeader.setMenu(helpMenu);
+
+		aboutItem = new MenuItem(helpMenu, SWT.PUSH);
+		aboutItem.setText("&About Program");
+
+		shell.setMenuBar(menuBar);
 	}
 
     private void createHeader(Composite parent) {
@@ -177,7 +226,7 @@ public class PlanetInitialConfigurationWindow {
         CommonHelper.increaseControlFontSize(cancelButton, +3);
         cancelButton.addSelectionListener(new SelectionAdapter() {
             public void widgetSelected(SelectionEvent e) {
-                System.exit(0);
+                //System.exit(0);
                 isOK = false;
             }
         });

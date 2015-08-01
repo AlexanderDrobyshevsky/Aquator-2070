@@ -13,11 +13,11 @@ x [12]-TASK: Add iter/sec in Realtime Datasheet
 + [13] TASK: Improve cycle calculation on realtime datasheet algorithm
 + [14] TASK: Move buttons from main window to Realtime Datasheet window
 + [15] TASK: Pause/Resume implementation
-. [16] TASK: New simulation button implementation
++ [16] TASK: New simulation button implementation
 + [17] TASK: Realtime Datasheet: Next Step implementation
 - [18] TASK: Add Run Summary after Simulation is finished
 - [19] TASK: Open main window or dashboard => open all windows
-- [20] TASK: Dist: Separate versions for: win32, win64, linux, mac
+. [20] TASK: Dist: Separate versions for: win32, win64, linux, mac
 - [21] TASK: Maven creates distributives automatically
 + [22] TASK: Add menu in configuration window
 - [23] TASK: Implement "reset to defaults" menu item

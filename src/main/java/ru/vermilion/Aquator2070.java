@@ -3,125 +3,69 @@ package ru.vermilion;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.*;
 import ru.vermilion.graphics.EllipseGraphicThreadWindow;
 import ru.vermilion.graphics.EmpiricGraphicThreadWindow;
 
-import org.eclipse.swt.layout.GridLayout;
-
-import ru.vermilion.representation.RealtimeDatasheet;
+import ru.vermilion.representation.SimulationDashboard;
 
 import ru.vermilion.basic.AquatorPlanetHelper;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Aquator2070 {
 
-    private Menu menuBar,  systemMenu, helpMenu;
+    private static final int SHELL_TRIM = SWT.TITLE | SWT.MIN;
 
-    private MenuItem systemMenuHeader, helpMenuHeader;
 
-    // System Items
-    private MenuItem setDefaultsItem, exitItem;
+    private void inseption() {
 
-    // Help Items
-    private MenuItem aboutItem;
+        boolean isRestart = true;
 
-    final int SHELL_TRIM = SWT.TITLE | SWT.MIN;
+        while (isRestart) {
+            isRestart = start();
+        }
+    }
 
-    private void createMenu(Shell shell) {
-        menuBar = new Menu(shell, SWT.BAR);
+    // refactor  ;;  true - restart;
+	private boolean start() {
+		Display display = new Display();
+        AtomicInteger synchronizer = new AtomicInteger(0);
+        PlanetInitialConfigurationWindow planetInitialConfigurationWindow = requestPlanetConfiguration(display);
+        if (planetInitialConfigurationWindow == null) {
+            return false;
+        }
 
-        // System
-        systemMenuHeader = new MenuItem(menuBar, SWT.CASCADE);
-        systemMenuHeader.setText("&System");
+        Shell worldShell = new Shell(display, SHELL_TRIM);
+        AquatorPlanetHelper.initColors(worldShell);
+		worldShell.setText("Aquator World Simulation");
 
-        systemMenu = new Menu(shell, SWT.DROP_DOWN);
-        systemMenuHeader.setMenu(systemMenu);
-
-        setDefaultsItem = new MenuItem(systemMenu, SWT.PUSH);
-        setDefaultsItem.setText("&Reset parameters to defaults");
-
-        exitItem = new MenuItem(systemMenu, SWT.PUSH);
-        exitItem.setText("&Exit");
-
-        exitItem.addSelectionListener(new SelectionAdapter() {
-            public void widgetSelected(SelectionEvent e) {
-                System.exit(0);
+        worldShell.addDisposeListener(new DisposeListener() {
+            public void widgetDisposed(DisposeEvent disposeEvent) {
+                //System.exit(0);
             }
         });
 
-
-        // Help
-        helpMenuHeader = new MenuItem(menuBar, SWT.CASCADE);
-        helpMenuHeader.setText("&Help");
-
-        helpMenu = new Menu(shell, SWT.DROP_DOWN);
-        helpMenuHeader.setMenu(helpMenu);
-
-        aboutItem = new MenuItem(helpMenu, SWT.PUSH);
-        aboutItem.setText("&About Program");
-
-        shell.setMenuBar(menuBar);
-    }
-
-    // refactor
-	private void start() {
-		Display display = new Display();
-		Shell worldShell = new Shell(display, SHELL_TRIM);
-		worldShell.setLayout(new GridLayout());
-
-        createMenu(worldShell);
-		PlanetInitialConfigurationWindow planetInitialConfigurationWindow = new PlanetInitialConfigurationWindow(worldShell);
-
-		worldShell.open();
-
-		while (!worldShell.isDisposed()) {
-			if (!display.readAndDispatch())
-				display.sleep();
-
-			if (planetInitialConfigurationWindow.isOK() != null) {
-				break;
-			}
-		}
-
-        // todo refactor
-		if (planetInitialConfigurationWindow.isOK() == null || !planetInitialConfigurationWindow.isOK()) {
-			System.exit(0);
-		}
-
-		if (!worldShell.isDisposed()) {
-			worldShell.close();
-			worldShell.dispose();
-		}
-
-		worldShell = new Shell(display, SHELL_TRIM);
-		AquatorPlanetHelper.initColors(worldShell);
-		worldShell.setText("Life..");
-
-        worldShell.addDisposeListener(new DisposeListener() {
-			public void widgetDisposed(DisposeEvent disposeEvent) {
-				System.exit(0);
-			}
-		});
-
+        synchronizer.set(0);
 		AquatorLife aquaLife = new AquatorLife(planetInitialConfigurationWindow);
-		aquaLife.aquatorLifeDraw(worldShell);
+		aquaLife.createContent(worldShell, synchronizer);
 		worldShell.open();
 
-		final EmpiricGraphicThreadWindow egtw = new EmpiricGraphicThreadWindow();
+		final EmpiricGraphicThreadWindow egtw = new EmpiricGraphicThreadWindow(synchronizer);
 		egtw.setDaemon(true);
 		egtw.start();
 		
-		final EllipseGraphicThreadWindow ellipsegtw = new EllipseGraphicThreadWindow();
+		final EllipseGraphicThreadWindow ellipsegtw = new EllipseGraphicThreadWindow(synchronizer);
 		ellipsegtw.setDaemon(true);
 		ellipsegtw.start();
 		
-		final RealtimeDatasheet rtds = new RealtimeDatasheet(planetInitialConfigurationWindow, aquaLife);
+		final SimulationDashboard rtds = new SimulationDashboard(planetInitialConfigurationWindow, aquaLife, synchronizer);
 		rtds.setDaemon(true);
-		rtds.start();
+        rtds.start();
+
+        while (synchronizer.get() != 4) {   AquatorPlanetHelper.delay(20);    }
 
         layoutShells(display, worldShell, egtw, ellipsegtw, rtds);
 
@@ -136,10 +80,44 @@ public class Aquator2070 {
 			}
 		}
 
-		planetInitialConfigurationWindow.dispose();
+        disposeWindows(worldShell, egtw, ellipsegtw, rtds);
+        display.dispose();
+
+        return aquaLife.isRestart();
 	}
 
-    private void layoutShells(Display display, Shell worldShell, final EmpiricGraphicThreadWindow egtw, final EllipseGraphicThreadWindow ellipsegtw, final RealtimeDatasheet rtds) {
+    private PlanetInitialConfigurationWindow requestPlanetConfiguration(Display display) {
+        Shell configurationWindowShell = new Shell(display, SHELL_TRIM);
+
+        PlanetInitialConfigurationWindow planetInitialConfigurationWindow = new PlanetInitialConfigurationWindow(configurationWindowShell);
+
+        configurationWindowShell.open();
+
+        while (!configurationWindowShell.isDisposed()) {
+            if (!display.readAndDispatch())
+                display.sleep();
+
+            if (planetInitialConfigurationWindow.isOK() != null) {
+                break;
+            }
+        }
+
+        // todo refactor
+        if (planetInitialConfigurationWindow.isOK() == null || !planetInitialConfigurationWindow.isOK()) {
+            planetInitialConfigurationWindow.dispose();
+            return null;
+        }
+        planetInitialConfigurationWindow.dispose();
+
+        if (!configurationWindowShell.isDisposed()) {
+            configurationWindowShell.close();
+            configurationWindowShell.dispose();
+        }
+
+        return planetInitialConfigurationWindow;
+    }
+
+    private void layoutShells(Display display, Shell worldShell, final EmpiricGraphicThreadWindow egtw, final EllipseGraphicThreadWindow ellipsegtw, final SimulationDashboard rtds) {
         Point pt = display.getCursorLocation();
         Rectangle rect = null;
         Monitor[] monitors = display.getMonitors();
@@ -196,7 +174,7 @@ public class Aquator2070 {
         applyCalculatedLocations(worldShell, egtw, ellipsegtw, rtds, a, b, c, d);
     }
 
-    private void applyCalculatedLocations(Shell worldShell, final EmpiricGraphicThreadWindow egtw, final EllipseGraphicThreadWindow ellipsegtw, final RealtimeDatasheet rtds, Point a, final Point b, final Point c, final Point d) {
+    private void applyCalculatedLocations(Shell worldShell, final EmpiricGraphicThreadWindow egtw, final EllipseGraphicThreadWindow ellipsegtw, final SimulationDashboard rtds, Point a, final Point b, final Point c, final Point d) {
         worldShell.setLocation(a);
         egtw.getWindowShell().getDisplay().asyncExec(new Runnable() {
             @Override
@@ -220,8 +198,33 @@ public class Aquator2070 {
         });
     }
 
+    private void disposeWindows(Shell worldShell, final EmpiricGraphicThreadWindow egtw, final EllipseGraphicThreadWindow ellipsegtw, final SimulationDashboard rtds) {
+        worldShell.dispose();
+
+        egtw.getWindowShell().getDisplay().asyncExec(new Runnable() {
+            @Override
+            public void run() {
+                egtw.getWindowShell().getDisplay().dispose();
+            }
+        });
+
+        ellipsegtw.getWindowShell().getDisplay().asyncExec(new Runnable() {
+            @Override
+            public void run() {
+                ellipsegtw.getWindowShell().getDisplay().dispose();
+            }
+        });
+
+        rtds.getWindowShell().getDisplay().asyncExec(new Runnable() {
+            @Override
+            public void run() {
+                rtds.getWindowShell().getDisplay().dispose();
+            }
+        });
+    }
+
 	public static void main(String args[]) {
-		new Aquator2070().start();
+		new Aquator2070().inseption();
 
 	}
 

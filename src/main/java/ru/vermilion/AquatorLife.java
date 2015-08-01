@@ -11,17 +11,21 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 import ru.vermilion.basic.AquatorPlanetConfiguration;
 import ru.vermilion.basic.AquatorPlanetHelper;
+import ru.vermilion.basic.CommonHelper;
 import ru.vermilion.behavior.AquatorExecutive;
 import ru.vermilion.model.EmpiricGraphicData;
 import ru.vermilion.model.PlanetModelController;
 
 import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class AquatorLife {
 
 	private AquatorExecutive aquatorExecutive;
 
 	private boolean isCancel;
+
+	private boolean isRestart;
 
 	private boolean isPaused;
 
@@ -48,7 +52,7 @@ public class AquatorLife {
 
 	private int[][] currentLand;
 
-	public void aquatorLifeDraw(Composite parent) {
+	public void createContent(Composite parent, AtomicInteger synchronizer) {
 		final int width = AquatorPlanetConfiguration.getWidth();
 		final int height = AquatorPlanetConfiguration.getHeight();
 
@@ -78,6 +82,8 @@ public class AquatorLife {
 		Color colorBlack = parent.getDisplay().getSystemColor(SWT.COLOR_BLACK);
 		surface.setBackground(colorBlack);
 		parent.pack();
+
+		synchronizer.getAndIncrement();
 	}
 
 	boolean theEnd = false;
@@ -88,7 +94,7 @@ public class AquatorLife {
 	}
 
 	private void paintPlanet(GC gc, Shell shell) {
-		if (isHandling == true || theEnd) {
+		if (isHandling == true || theEnd || isCancel) {
 			return;
 		}
 
@@ -113,7 +119,7 @@ public class AquatorLife {
 		}
 
 		while (!theEnd) {
-			if (shell.getDisplay().readAndDispatch()
+			if (isCancel || shell.getDisplay().readAndDispatch()
 					& shell.getDisplay().readAndDispatch()
 					& shell.getDisplay().readAndDispatch()
 					& shell.getDisplay().readAndDispatch() || isPaused) {
@@ -142,7 +148,7 @@ public class AquatorLife {
     }
 
 	public void nextIteration() {
-		if (isPaused) return;
+		if (isPaused || isCancel) return;
 
 		long currItr = aquatorExecutive.getCurrentIteration();
 		
@@ -174,7 +180,19 @@ public class AquatorLife {
 		return isCancel;
 	}
 
-    public Composite getSurface() {
+	public void setIsCancel(boolean isCancel) {
+		this.isCancel = isCancel;
+	}
+
+	public boolean isRestart() {
+		return isRestart;
+	}
+
+	public void setIsRestart(boolean isRestart) {
+		this.isRestart = isRestart;
+	}
+
+	public Composite getSurface() {
         return surface;
     }
 }

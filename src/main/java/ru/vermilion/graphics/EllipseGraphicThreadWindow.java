@@ -20,6 +20,8 @@ import org.eclipse.swt.widgets.Spinner;
 
 import ru.vermilion.basic.CommonHelper;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class EllipseGraphicThreadWindow extends GraphicThreadWindow {
 
 	private static final int REFRESH_INTERVAL = 1000;
@@ -36,6 +38,10 @@ public class EllipseGraphicThreadWindow extends GraphicThreadWindow {
 	
 	private Button autoAdjustCheckBox;
 	private Button showAllCheckBox;
+
+	public EllipseGraphicThreadWindow(AtomicInteger createContentSynchronizer) {
+		super(createContentSynchronizer);
+	}
 
 	protected void configureWindow() {
 		windowShell.setText("Ellipse Data Graphic");

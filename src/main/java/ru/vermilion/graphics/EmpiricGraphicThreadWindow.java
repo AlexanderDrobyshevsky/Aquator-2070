@@ -18,6 +18,9 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Slider;
+import ru.vermilion.basic.AquatorPlanetHelper;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class EmpiricGraphicThreadWindow extends GraphicThreadWindow {
 
@@ -34,6 +37,10 @@ public class EmpiricGraphicThreadWindow extends GraphicThreadWindow {
 	private Slider screenSlider;
 	
 	private double divisor;
+
+	public EmpiricGraphicThreadWindow(AtomicInteger createContentSynchronizer) {
+		super(createContentSynchronizer);
+	}
 
 	protected void configureWindow() {
 		windowShell.setText("Empiric Data Graphic");

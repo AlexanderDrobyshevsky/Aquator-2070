@@ -12,6 +12,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public abstract class GraphicThreadWindow extends Thread {
 	protected Shell windowShell;
 
@@ -43,7 +45,13 @@ public abstract class GraphicThreadWindow extends Thread {
 	private Point windowSize;
 
 	private final Object synchronizer = new Object();
-	
+
+	private AtomicInteger createContentSynchronizer;
+
+	public GraphicThreadWindow(AtomicInteger createContentSynchronizer) {
+		this.createContentSynchronizer = createContentSynchronizer;
+	}
+
 	// if repainting is more than REFRESH_INTERVAL what will happens : Either the method runs again or only after previous one is finished ?
 	public void run() {
 		Display display;
@@ -66,6 +74,7 @@ public abstract class GraphicThreadWindow extends Thread {
 
 			windowShell.open();
 			windowSize = windowShell.getSize();
+			createContentSynchronizer.incrementAndGet();
 		}
 
 		while (!windowShell.isDisposed()) {

@@ -22,7 +22,9 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
-public class RealtimeDatasheet extends Thread {
+import java.util.concurrent.atomic.AtomicInteger;
+
+public class SimulationDashboard extends Thread {
 	
 	protected Shell windowShell;
 	
@@ -40,9 +42,12 @@ public class RealtimeDatasheet extends Thread {
 
     private Point windowSize;
 
-	public RealtimeDatasheet(PlanetInitialConfigurationWindow planetInitialConfiguration, AquatorLife aquaLife) {
+	private AtomicInteger createContentSynchronizer;
+
+	public SimulationDashboard(PlanetInitialConfigurationWindow planetInitialConfiguration, AquatorLife aquaLife, AtomicInteger createContentSynchronizer) {
 		this.planetInitialConfiguration = planetInitialConfiguration;
 		this.aquaLife = aquaLife;
+		this.createContentSynchronizer = createContentSynchronizer;
 	}
 
 	public void run() {
@@ -67,6 +72,7 @@ public class RealtimeDatasheet extends Thread {
 			windowShell.open();
 
             windowSize = windowShell.getSize();
+            createContentSynchronizer.incrementAndGet();
 		}
 
 		while (!windowShell.isDisposed()) {
@@ -77,9 +83,7 @@ public class RealtimeDatasheet extends Thread {
 	}
 
 	protected void configureWindow() {
-		windowShell.setText("Realtime Datasheet");
-		//windowShell.setBounds(500, 360, width, height);
-		//windowShell.setMinimumSize(new Point(250, 180));
+		windowShell.setText("Simulation Dashboard");
 	}
 	
 	private Button itrxButton;
@@ -155,7 +159,12 @@ public class RealtimeDatasheet extends Thread {
 			@Override
 			public void widgetSelected(SelectionEvent selectionEvent) {
 				MessageOKCancelDialog okCancelDialog = new MessageOKCancelDialog(composite.getShell(), "Attention", "Do you really want to start new simulation? \r\n This simulation will be canceled!");
-				okCancelDialog.open();
+				MessageOKCancelDialog.DialogCase dialogCase = okCancelDialog.open();
+
+				if (dialogCase == MessageOKCancelDialog.DialogCase.OK) {
+					aquaLife.setIsRestart(true);
+					aquaLife.setIsCancel(true);
+				}
 			}
 		});
 
