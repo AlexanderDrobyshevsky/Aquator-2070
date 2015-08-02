@@ -1,0 +1,1 @@
+java -jar -Xms256m -Xmx1024m Aquator-1.0.jar

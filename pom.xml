@@ -22,11 +22,12 @@
             <configuration>
                 <archive>
                     <manifest>
-                        <addClasspath>true</addClasspath>
+                        <addClasspath>false</addClasspath>
                         <mainClass>ru.vermilion.Aquator2070</mainClass>
-                        <classpathPrefix>lib/</classpathPrefix>
-                        <useUniqueVersions>true</useUniqueVersions>
                     </manifest>
+                    <manifestEntries>
+                        <Class-Path>lib/swt.jar</Class-Path>
+                    </manifestEntries>
                 </archive>
             </configuration>
 
