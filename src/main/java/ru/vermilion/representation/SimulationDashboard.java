@@ -115,7 +115,7 @@ public class SimulationDashboard extends Thread {
 		
 		// realtime environment 
 		itrxButton = createButtonedLabel2x(datasheetComposite11, "Iteration:", "0");
-		cycleButton = createButtonedLabel2x(datasheetComposite11, "Cycle:", "0");
+		cycleButton = createButtonedLabel2x(datasheetComposite11, "Life Cycle:", "0");
 		fishesButton = createButtonedLabel2x(datasheetComposite11, "Fishes:", "0");
 		sharksButton = createButtonedLabel2x(datasheetComposite11, "Sharks:", "0");
 

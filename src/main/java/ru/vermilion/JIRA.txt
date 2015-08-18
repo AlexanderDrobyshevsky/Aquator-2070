@@ -18,7 +18,7 @@ x [12]-TASK: Add iter/sec in Realtime Datasheet
 - [18] TASK: Add Run Summary after Simulation is finished and offer to start new one
 - [19] TASK: Open main window or dashboard => open all windows
 + [20] TASK: Dist: Separate versions for: win32, win64
-x [21] TASK: Maven creates distributives automatically
++ [21] TASK: Maven creates distributives automatically
 + [22] TASK: Add menu in configuration window
 - [23] TASK: Implement "reset to defaults" menu item
 - [24] TASK: Implement "about" menu item
