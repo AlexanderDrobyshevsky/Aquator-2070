@@ -9,7 +9,7 @@
 x [9]- TASK(Tech): Refactor Initial Configuration class
 - [10] TASK: Make up how to proceed with current world after program termination
 + [11] BUG: Current Iteration number is not correct in Realtime Datasheet
-x [12]-TASK: Add iter/sec in Realtime Datasheet
+x [12]-TASK: Add iter/sec on Dashboard
 + [13] TASK: Improve cycle calculation on realtime datasheet algorithm
 + [14] TASK: Move buttons from main window to Realtime Datasheet window
 + [15] TASK: Pause/Resume implementation
@@ -20,7 +20,7 @@ x [12]-TASK: Add iter/sec in Realtime Datasheet
 + [20] TASK: Dist: Separate versions for: win32, win64
 + [21] TASK: Maven creates distributives automatically
 + [22] TASK: Add menu in configuration window
-- [23] TASK: Implement "reset to defaults" menu item
++ [23] TASK: Implement "reset to defaults" menu item
 - [24] TASK: Implement "about" menu item
 + [25] TASK: Sort out Configuration Window
 - [26] TASK: Add Git Project Readme.md with program description

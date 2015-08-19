@@ -141,6 +141,30 @@ public class PlanetInitialConfigurationWindow {
 		setDefaultsItem = new MenuItem(systemMenu, SWT.PUSH);
 		setDefaultsItem.setText("&Reset parameters to defaults");
 
+		setDefaultsItem.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				worldHeightText.setText("200");
+				worldWidthText.setText("180");
+				worldMaxDepthText.setText("70");
+
+				fishLifeTimeText.setText("39");
+				fishMaxReproductivesText.setText("3");
+				fishPregnantPeriodText.setText("8");
+				fishSpeedText.setText("2");
+				fishMaxDepthText.setText("4");
+
+				sharkLifeTimeText.setText("48");
+				sharkMaxReproductivesText.setText("5");
+				sharkPregnantPeriodText.setText("22");
+				sharkMaxHungerTimeText.setText("8");
+				sharkSpeedText.setText("3");
+				sharkMaxDepthText.setText("5");
+
+				initialFishesCountText.setText("12");
+				initialSharkesCountText.setText("10");
+			}
+		});
+
 		exitItem = new MenuItem(systemMenu, SWT.PUSH);
 		exitItem.setText("&Exit");
 
